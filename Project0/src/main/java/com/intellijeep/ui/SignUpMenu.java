@@ -52,7 +52,7 @@ public class SignUpMenu extends AbstractMenu{
         locationInfo.setZipCode(scan.nextLine());
 
         accountInfo.setUserID(us.makeUser(accountInfo, personalInfo, locationInfo));
-        accountInfo.setAccountType(AccountType.UNREGISTERED);
+        accountInfo.setAccountType(AccountType.USER);
 
         System.out.println("Successfully Created " + accountInfo.getUsername());
         System.out.println("Now redirecting you");

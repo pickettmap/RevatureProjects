@@ -16,7 +16,7 @@ public class MenuFactory {
             case ADMIN:
                 return new AdminMenu();
             default:
-                throw new IllegalArgumentException("The account type provided does not have a corresponding menu type");
+                return null;
         }
     }
 
@@ -24,6 +24,8 @@ public class MenuFactory {
         switch (menuType.toLowerCase()) {
             case "sign up":
                 return new SignUpMenu();
+            case "register":
+                return new RegistrationMenu();
             case "login":
                 return new LoginMenu();
             case "logout":
@@ -31,7 +33,7 @@ public class MenuFactory {
             case "welcome":
                 return new WelcomeMenu();
             default:
-                throw new IllegalArgumentException("The menu you're asking for does not exist");
+                return null;
         }
     }
 }

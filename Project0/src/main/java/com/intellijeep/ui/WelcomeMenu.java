@@ -7,14 +7,16 @@ public class WelcomeMenu extends AbstractMenu{
 
     @Override
     public void showMenu(Scanner scan) {
-        System.out.println("===== Welcome to IntelliJeep =====");
-        System.out.println("Beep Beep Jeep");
+        do {
+            System.out.println("===== Welcome to IntelliJeep =====");
+            System.out.println("Beep Beep Jeep");
 
-        System.out.println("Would you like to Sign Up or Login?");
-        String response = scan.nextLine().toLowerCase();
-        System.out.println(response);
+            System.out.println("Would you like to Sign Up or Login?");
+            String response = scan.nextLine().toLowerCase();
+            System.out.println(response);
+            nextMenu = menuFactory.getControlFlowMenu(response);
+        } while (nextMenu == null);
 
-        nextMenu = menuFactory.getControlFlowMenu(response);
         nextMenu.showMenu(scan);
     }
 }
