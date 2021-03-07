@@ -6,17 +6,16 @@ import com.intellijeep.util.IntelliJeepCollection;
 /**
  * A dao contract to determine functionality in the DealershipDao objects
  * @param <T> Class used for this dao object
- * @param <I> Primary key used by the class
  */
-public interface GenericDao<T, I>{
+public interface GenericDao<T>{
 
     int save(T t);
 
-    T getByID(I id);
+    T getByID(Integer id);
 
     IntelliJeepCollection getAll();
 
-    Boolean remove(I id);
+    Boolean remove(Integer id);
 
     Boolean update(T t);
 

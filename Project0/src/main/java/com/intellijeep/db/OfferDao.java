@@ -3,10 +3,10 @@ package com.intellijeep.db;
 import com.intellijeep.model.Offer;
 import com.intellijeep.util.IntelliJeepCollection;
 
-public class OfferDao implements GenericDao <Offer, Integer> {
+public class OfferDao implements GenericDao <Offer> {
     private static OfferDao instance;
 
-    private OfferDao(){};
+    private OfferDao(){}
 
     static OfferDao getInstance() {
         if(instance == null) {

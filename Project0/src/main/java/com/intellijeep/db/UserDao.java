@@ -7,7 +7,7 @@ import com.intellijeep.util.IntelliJeepCollection;
 
 import java.sql.*;
 
-public class UserDao implements GenericDao<User, Integer> {
+public class UserDao implements GenericDao<User> {
 
     /**
      * Singleton design pattern

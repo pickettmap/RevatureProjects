@@ -3,7 +3,7 @@ package com.intellijeep.db;
 import com.intellijeep.model.Car;
 import com.intellijeep.util.IntelliJeepCollection;
 
-public class CarDao implements GenericDao<Car, Integer>{
+public class CarDao implements GenericDao<Car>{
 
     public static CarDao instance;
 
