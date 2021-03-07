@@ -14,6 +14,7 @@ public class UserService {
     }
 
     private static IntelliJeepCollection<User> userCollection = new IntelliJeepCollection<>(User.class, 0);
+    private static User currentUser;
 
     public boolean doesUsernameExist(String username) {
         return findUserByUsername(username) != null;
@@ -48,6 +49,7 @@ public class UserService {
                             .locationData(locationData)
                             .build();
             userCollection.add(user);
+            currentUser = user;
             return 69;
             //return userDao.save(user);
         } else {
@@ -59,5 +61,13 @@ public class UserService {
     //TODO: Delete after testing
     public void showUsers() {
         System.out.println(userCollection.toString());
+    }
+
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
+    public void setCurrentUser(User u){
+        currentUser = u;
     }
 }

@@ -1,4 +1,4 @@
-/**
+/*
  * Resources for Abstracted Builder Pattern: https://medium.com/@KonfHub/refactoring-long-parameter-list-in-constructors-java-e9c9f2cb1fb
  */
 
@@ -13,12 +13,24 @@ public class User implements Comparable<User>{
         return accountData;
     }
 
+    public void setAccountData(UserAccountInfo accountData) {
+        this.accountData = accountData;
+    }
+
     public UserPersonalInfo getPersonalInfo() {
         return personalInfo;
     }
 
+    public void setPersonalInfo(UserPersonalInfo personalInfo) {
+        this.personalInfo = personalInfo;
+    }
+
     public UserLocationInfo getLocationData() {
         return locationData;
+    }
+
+    public void setLocationData(UserLocationInfo locationData) {
+        this.locationData = locationData;
     }
 
     @Override
