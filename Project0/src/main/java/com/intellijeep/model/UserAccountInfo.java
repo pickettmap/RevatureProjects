@@ -6,6 +6,8 @@ public class UserAccountInfo {
     private String password;
     private AccountType accountType;
 
+    public UserAccountInfo(){}
+
     public UserAccountInfo(int userID, String username, String password, AccountType accountType) {
         this.userID = userID;
         this.username = username;

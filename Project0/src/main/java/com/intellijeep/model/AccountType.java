@@ -4,5 +4,6 @@ public enum AccountType {
     UNREGISTERED,
     USER,
     CUSTOMER,
-    EMPLOYEE
+    EMPLOYEE,
+    ADMIN
 }

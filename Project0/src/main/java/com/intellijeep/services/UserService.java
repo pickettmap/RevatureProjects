@@ -39,8 +39,7 @@ public class UserService {
         return null;
     }
 
-    //TODO: can I return userID? Should I?
-    public Boolean makeUser(UserAccountInfo accountData, UserPersonalInfo personalInfo, UserLocationInfo locationData) {
+    public int makeUser(UserAccountInfo accountData, UserPersonalInfo personalInfo, UserLocationInfo locationData) {
         if(!doesUsernameExist(accountData.getUsername())) {
             User user =
                     new User.UserBuilder()
@@ -49,11 +48,12 @@ public class UserService {
                             .locationData(locationData)
                             .build();
             userCollection.add(user);
-            //userDao.save(user);
+            return 69;
+            //return userDao.save(user);
         } else {
             System.out.println("Username is taken");
         }
-        return false;
+        return -1;
     }
 
     //TODO: Delete after testing

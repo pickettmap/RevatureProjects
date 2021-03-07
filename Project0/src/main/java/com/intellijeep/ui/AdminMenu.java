@@ -2,10 +2,9 @@ package com.intellijeep.ui;
 
 import java.util.Scanner;
 
-public class LoginMenu extends AbstractMenu{
+public class AdminMenu extends AbstractMenu{
     @Override
     public void showMenu(Scanner scan) {
 
     }
-
 }

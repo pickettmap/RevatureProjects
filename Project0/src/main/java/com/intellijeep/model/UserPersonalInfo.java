@@ -6,6 +6,8 @@ public class UserPersonalInfo {
     private String email;
     private String phoneNumber;
 
+    public UserPersonalInfo(){}
+
     public UserPersonalInfo(String firstName, String lastName, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;

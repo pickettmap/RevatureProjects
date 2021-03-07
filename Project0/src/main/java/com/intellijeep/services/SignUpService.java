@@ -1,10 +1,12 @@
 package com.intellijeep.services;
 
-import com.intellijeep.db.DaoFactory;
-import com.intellijeep.model.User;
+import com.intellijeep.ui.InputValidationUtility;
 
 public class SignUpService {
-    private UserService us = new UserService(DaoFactory.createDao(User.class));
 
+    private InputValidationUtility ivu;
 
+    public boolean checkPassword(String s){
+        return ivu.isValid(s);
+    }
 }

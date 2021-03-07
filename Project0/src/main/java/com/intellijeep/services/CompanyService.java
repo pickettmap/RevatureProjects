@@ -1,4 +1,4 @@
 package com.intellijeep.services;
 
-public class SystemService {
+public class CompanyService {
 }

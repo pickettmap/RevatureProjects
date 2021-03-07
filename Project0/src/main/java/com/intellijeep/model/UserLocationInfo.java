@@ -6,6 +6,8 @@ public class UserLocationInfo {
     private String state;
     private String zipCode;
 
+    public UserLocationInfo(){}
+
     public UserLocationInfo(String streetAddress, String city, String state, String zipCode) {
         this.streetAddress = streetAddress;
         this.city = city;

@@ -3,14 +3,19 @@ package com.intellijeep;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.model.*;
 import com.intellijeep.services.UserService;
+import com.intellijeep.ui.AbstractMenu;
+import com.intellijeep.ui.MenuFactory;
+import com.intellijeep.ui.WelcomeMenu;
+
+import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args) {
+        AbstractMenu menu;
+        MenuFactory mf = new MenuFactory();
+        menu = mf.getControlFlowMenu("welcome");
 
-        UserService us = new UserService(DaoFactory.createDao(User.class));
-        us.makeUser(new UserAccountInfo(1,"fat fucking jujortsu","password",AccountType.CUSTOMER),
-                new UserPersonalInfo("yue","ren", "ren@gmail.com","123"),
-                new UserLocationInfo("yo","chicago","il","123"));
-        us.showUsers();
+        Scanner scan = new Scanner(System.in);
+        menu.showMenu(scan);
     }
 }
