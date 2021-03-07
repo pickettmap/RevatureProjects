@@ -1,4 +1,4 @@
-package com.intellijeep.ui;
+package com.intellijeep.ui.util;
 
 import java.util.Locale;
 

@@ -23,7 +23,6 @@ public class IntelliJeepCollection<T> implements Iterable<T>{
         this.objList = objList;
     }
 
-    // TODO: Try and make safe converter from Object -> Type (which converts back to object?)
     // Requires object type and size, used for custom classes
     public IntelliJeepCollection(Class<T> clazz, int capacity) {
         objList = (T[]) Array.newInstance(clazz, capacity);
@@ -40,7 +39,6 @@ public class IntelliJeepCollection<T> implements Iterable<T>{
     }
 
     public void add(T o) {
-        //TODO: maybe refactor this
         //Poor way of checking for duplicates
         for(T obj : objList) {
             if(obj == null) {continue;}

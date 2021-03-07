@@ -7,14 +7,13 @@ import com.intellijeep.util.IntelliJeepCollection;
 public class UserService {
 
     //GenericDao userDao holds user and userID
-    GenericDao<User, Integer> userDao;
+    GenericDao<User> userDao;
 
-    public UserService(GenericDao<User, Integer> userDao) {
+    public UserService(GenericDao<User> userDao) {
         this.userDao = userDao;
     }
 
     private static IntelliJeepCollection<User> userCollection = new IntelliJeepCollection<>(User.class, 0);
-    private static User currentUser;
 
     public boolean doesUsernameExist(String username) {
         return findUserByUsername(username) != null;
@@ -49,7 +48,6 @@ public class UserService {
                             .locationData(locationData)
                             .build();
             userCollection.add(user);
-            currentUser = user;
             return 69;
             //return userDao.save(user);
         } else {
@@ -58,16 +56,14 @@ public class UserService {
         return -1;
     }
 
+    //TODO: If account type changes to customer, add to customer table
+    public void changeUserAccountType(AccountType accountType, int userID){
+        findUserByUserID(userID).getAccountData().setAccountType(accountType);
+    }
+
     //TODO: Delete after testing
     public void showUsers() {
         System.out.println(userCollection.toString());
     }
 
-    public User getCurrentUser(){
-        return currentUser;
-    }
-
-    public void setCurrentUser(User u){
-        currentUser = u;
-    }
 }

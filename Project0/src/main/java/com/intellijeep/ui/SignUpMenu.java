@@ -8,11 +8,18 @@ import java.util.Scanner;
 
 public class SignUpMenu extends AbstractMenu{
 
-    private UserService us = new UserService(DaoFactory.createDao(User.class));
+    private UserService us;
 
-    private UserAccountInfo accountInfo = new UserAccountInfo(); //id, username, password, accountType
-    private UserPersonalInfo personalInfo = new UserPersonalInfo(); //first name, last name, email, phone number
-    private UserLocationInfo locationInfo = new UserLocationInfo(); //street address, city, state, zip
+    private UserAccountInfo accountInfo; //id, username, password, accountType
+    private UserPersonalInfo personalInfo; //first name, last name, email, phone number
+    private UserLocationInfo locationInfo; //street address, city, state, zip
+
+    public SignUpMenu() {
+        this.us = new UserService(DaoFactory.createDao(User.class));
+        this.accountInfo = new UserAccountInfo();
+        this.personalInfo = new UserPersonalInfo();
+        this.locationInfo = new UserLocationInfo();
+    }
 
     Boolean validUser = false;
     //TODO: Implement input validation (Utilize IVU and SignUpService)
@@ -57,7 +64,7 @@ public class SignUpMenu extends AbstractMenu{
         System.out.println("Successfully Created " + accountInfo.getUsername());
         System.out.println("Now redirecting you");
 
-        nextMenu = menuFactory.getUserAccountTypeMenu(accountInfo.getAccountType());
+        nextMenu = menuFactory.getUserAccountTypeMenu(us.findUserByUserID(accountInfo.getUserID()));
         nextMenu.showMenu(scan);
     }
 }
