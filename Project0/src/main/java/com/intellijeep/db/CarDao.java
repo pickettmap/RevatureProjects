@@ -29,7 +29,7 @@ public class CarDao implements GenericDao<Car>{
     }
 
     @Override
-    public IntelliJeepCollection getAll() {
+    public IntelliJeepCollection<Car> getAll() {
         return null;
     }
 
@@ -44,7 +44,7 @@ public class CarDao implements GenericDao<Car>{
     }
 
     @Override
-    public int updateAll(IntelliJeepCollection collection) {
+    public int updateAll(IntelliJeepCollection<Car> collection) {
         return 0;
     }
 }

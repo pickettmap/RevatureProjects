@@ -1,7 +1,6 @@
 package com.intellijeep.db;
 
 import com.intellijeep.config.ConnectionUtil;
-import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
 import com.intellijeep.util.IntelliJeepCollection;
 
@@ -40,7 +39,7 @@ public class UserDao implements GenericDao<User> {
         //TODO: Ask robert about placement for query
         String query = "insert into user_table values(?,?,?,?,?,?,?,?,?,?,?)";
 
-        try (Connection conn = ConnectionUtil.getInstance().getConnection(".dev.")) {
+        try (Connection conn = ConnectionUtil.getConnection(".dev.")) {
 
             //TODO: Add accountType relationship
             PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
@@ -79,7 +78,7 @@ public class UserDao implements GenericDao<User> {
     }
 
     @Override
-    public IntelliJeepCollection getAll() {
+    public IntelliJeepCollection<User> getAll() {
         return null;
     }
 
@@ -94,7 +93,7 @@ public class UserDao implements GenericDao<User> {
     }
 
     @Override
-    public int updateAll(IntelliJeepCollection collection) {
+    public int updateAll(IntelliJeepCollection<User> collection) {
         return 0;
     }
 }

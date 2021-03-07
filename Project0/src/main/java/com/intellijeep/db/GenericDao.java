@@ -13,11 +13,11 @@ public interface GenericDao<T>{
 
     T getByID(Integer id);
 
-    IntelliJeepCollection getAll();
+    IntelliJeepCollection<T> getAll();
 
     Boolean remove(Integer id);
 
     Boolean update(T t);
 
-    int updateAll(IntelliJeepCollection collection);
+    int updateAll(IntelliJeepCollection<T> collection);
 }

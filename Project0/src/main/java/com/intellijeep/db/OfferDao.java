@@ -27,7 +27,7 @@ public class OfferDao implements GenericDao <Offer> {
     }
 
     @Override
-    public IntelliJeepCollection getAll() {
+    public IntelliJeepCollection<Offer> getAll() {
         return null;
     }
 
@@ -42,7 +42,7 @@ public class OfferDao implements GenericDao <Offer> {
     }
 
     @Override
-    public int updateAll(IntelliJeepCollection collection) {
+    public int updateAll(IntelliJeepCollection<Offer> collection) {
         return 0;
     }
 }
