@@ -3,6 +3,7 @@
 package com.intellijeep.model;
 
 import com.intellijeep.util.EnumConverter;
+import com.intellijeep.util.IntelliJeepHashMap;
 import com.intellijeep.util.ReverseEnumMap;
 
 public enum AccountType implements EnumConverter<AccountType> {
@@ -12,7 +13,13 @@ public enum AccountType implements EnumConverter<AccountType> {
     EMPLOYEE(3),
     ADMIN(5);
 
-    private static ReverseEnumMap<AccountType> map = new ReverseEnumMap<AccountType>(AccountType.class);
+    private IntelliJeepHashMap<Integer,AccountType> map = new IntelliJeepHashMap<Integer,AccountType>();
+    public void ReverseEnumMap(Class<AccountType> accountType) {
+        for(AccountType ac : accountType.getEnumConstants()) {
+            map.put(ac.convert(),ac);
+        }
+    }
+
 
     private final int value;
 

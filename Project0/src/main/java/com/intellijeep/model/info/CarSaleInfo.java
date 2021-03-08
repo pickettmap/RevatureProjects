@@ -4,22 +4,22 @@ import com.intellijeep.model.CarStatus;
 import com.intellijeep.model.Offer;
 
 public class CarSaleInfo {
-    private int vin;
+    private int carID;
     private CarStatus carStatus;
     private Offer[] offers;
 
-    public CarSaleInfo(int vin, CarStatus carStatus) {
-        this.vin = vin;
+    public CarSaleInfo(int carID, CarStatus carStatus) {
+        this.carID = carID;
         this.carStatus = carStatus;
         this.offers = new Offer[0];
     }
 
-    public int getVin() {
-        return vin;
+    public int getCarID() {
+        return carID;
     }
 
-    public void setVin(int vin) {
-        this.vin = vin;
+    public void setCarID(int carID) {
+        this.carID = carID;
     }
 
     public CarStatus getCarStatus() {
@@ -41,7 +41,7 @@ public class CarSaleInfo {
     @Override
     public String toString() {
         return "CarSaleInfo{" +
-                "vin=" + vin +
+                "carID=" + carID +
                 ", carStatus=" + carStatus +
                 '}';
     }

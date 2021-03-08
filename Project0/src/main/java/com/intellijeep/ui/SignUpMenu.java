@@ -61,8 +61,8 @@ public class SignUpMenu extends AbstractMenu{
         System.out.println("Please provide Zipcode");
         locationInfo.setZipCode(scan.nextLine());
 
-        accountInfo.setUserID(us.makeUser(accountInfo, personalInfo, locationInfo));
         accountInfo.setAccountType(AccountType.USER);
+        accountInfo.setUserID(us.makeUser(accountInfo, personalInfo, locationInfo));
 
         System.out.println("Successfully Created " + accountInfo.getUsername());
         System.out.println("Now redirecting you");

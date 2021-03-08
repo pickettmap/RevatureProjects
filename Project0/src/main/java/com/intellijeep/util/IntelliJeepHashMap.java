@@ -10,13 +10,13 @@ public class IntelliJeepHashMap<K, V> {
 
     public IntelliJeepHashMap() {
         capacity = 16;
-        buckets = new IntelliJeepArrayList<>(Node.class, 0);
+        buckets = new IntelliJeepArrayList<Node>(Node.class, 0);
         size = 0;
     }
 
     public IntelliJeepHashMap(int capacity) {
         this.capacity = capacity;
-        buckets = new IntelliJeepArrayList<>(Node.class, 0);
+        buckets = new IntelliJeepArrayList<Node>(Node.class, 0);
         size = 0;
     }
 
@@ -90,7 +90,7 @@ public class IntelliJeepHashMap<K, V> {
                 temp = temp.next;
             }
             if(temp.key == key) {
-                return temp.value;
+                return (V) temp.value;
             }
         }
         return null;
@@ -110,7 +110,7 @@ public class IntelliJeepHashMap<K, V> {
         return result.toString();
     }
 
-    private class Node{
+    private class Node<K,V>{
         K key;
         V value;
         private Node next;

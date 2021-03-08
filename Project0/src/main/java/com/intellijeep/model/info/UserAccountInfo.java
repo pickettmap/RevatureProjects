@@ -54,6 +54,7 @@ public class UserAccountInfo {
         return "UserAccountInfo{" +
                 "userID=" + userID +
                 ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", accountType=" + accountType +
                 '}';
     }

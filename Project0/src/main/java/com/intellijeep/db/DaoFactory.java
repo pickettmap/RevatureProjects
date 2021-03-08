@@ -8,8 +8,10 @@ public class DaoFactory {
                 return UserDao.getInstance();
             case "com.intellijeep.model.Car":
                 return CarDao.getInstance();
-            case "com.intellijeep.model.":
+            case "com.intellijeep.model.Offer":
                 return OfferDao.getInstance();
+            case "com.intellijeep.model.Payment":
+                return PaymentDao.getInstance();
             default:
                 throw new IllegalArgumentException("The class provided does not have a corresponding dao object");
         }

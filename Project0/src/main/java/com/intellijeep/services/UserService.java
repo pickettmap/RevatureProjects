@@ -49,8 +49,7 @@ public class UserService {
                             .locationData(locationData)
                             .build();
             userCollection.add(user);
-            return 69;
-            //return userDao.save(user);
+            return userDao.save(user);
         } else {
             System.out.println("Username is taken");
         }
