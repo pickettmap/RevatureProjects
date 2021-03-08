@@ -1,7 +1,7 @@
 package com.intellijeep.db;
 
 import com.intellijeep.model.Car;
-import com.intellijeep.util.IntelliJeepCollection;
+import com.intellijeep.util.IntelliJeepArrayList;
 
 public class CarDao implements GenericDao<Car>{
 
@@ -29,7 +29,7 @@ public class CarDao implements GenericDao<Car>{
     }
 
     @Override
-    public IntelliJeepCollection<Car> getAll() {
+    public IntelliJeepArrayList<Car> getAll() {
         return null;
     }
 
@@ -44,7 +44,7 @@ public class CarDao implements GenericDao<Car>{
     }
 
     @Override
-    public int updateAll(IntelliJeepCollection<Car> collection) {
+    public int updateAll(IntelliJeepArrayList<Car> collection) {
         return 0;
     }
 }

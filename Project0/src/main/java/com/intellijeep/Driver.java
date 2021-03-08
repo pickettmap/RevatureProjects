@@ -13,7 +13,7 @@ public class Driver {
     public static void main(String[] args) {
         AbstractMenu menu;
         MenuFactory mf = new MenuFactory();
-        menu = mf.getControlFlowMenu("welcome");
+        menu = mf.getControlFlowMenu("welcome",null);
 
         Scanner scan = new Scanner(System.in);
         menu.showMenu(scan);

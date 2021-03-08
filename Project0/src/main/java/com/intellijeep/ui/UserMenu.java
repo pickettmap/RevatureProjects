@@ -15,6 +15,7 @@ public class UserMenu extends AbstractMenu {
     @Override
     public void showMenu(Scanner scan) {
         do {
+            System.out.println("Welcome, " + u.getAccountData().getUsername() + "!");
             System.out.println("Would you like to Register or Logout?");
             nextMenu = menuFactory.getControlFlowMenu(scan.nextLine(),u);
         } while(nextMenu == null);

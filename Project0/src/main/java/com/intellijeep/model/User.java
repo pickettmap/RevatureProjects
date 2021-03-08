@@ -4,6 +4,10 @@
 
 package com.intellijeep.model;
 
+import com.intellijeep.model.info.UserAccountInfo;
+import com.intellijeep.model.info.UserLocationInfo;
+import com.intellijeep.model.info.UserPersonalInfo;
+
 public class User implements Comparable<User>{
     private UserAccountInfo accountData;
     private UserPersonalInfo personalInfo;

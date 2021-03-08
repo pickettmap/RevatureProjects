@@ -1,4 +1,4 @@
-package com.intellijeep.model;
+package com.intellijeep.model.info;
 
 public class UserLocationInfo {
     private String streetAddress;

@@ -13,18 +13,24 @@ import java.util.Iterator;
  * View all elements
  */
 
-public class IntelliJeepCollection<T> implements Iterable<T>{
+public class IntelliJeepArrayList<T> implements Iterable<T>{
 
     private T[] objList;
-    private int currentSize = 0;
+    private int currentSize;
 
     // Takes an array of objects. Can be used for primitives or custom classes
-    public IntelliJeepCollection(T[] objList) {
+    public IntelliJeepArrayList(T[] objList) {
         this.objList = objList;
+        currentSize = objList.length;
+    }
+
+    public IntelliJeepArrayList(Class<T> clazz) {
+        objList = (T[]) Array.newInstance(clazz);
+        currentSize = 0;
     }
 
     // Requires object type and size, used for custom classes
-    public IntelliJeepCollection(Class<T> clazz, int capacity) {
+    public IntelliJeepArrayList(Class<T> clazz, int capacity) {
         objList = (T[]) Array.newInstance(clazz, capacity);
         currentSize = capacity;
     }

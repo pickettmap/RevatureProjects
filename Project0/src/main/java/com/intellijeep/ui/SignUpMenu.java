@@ -2,17 +2,20 @@ package com.intellijeep.ui;
 
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.model.*;
+import com.intellijeep.model.info.UserAccountInfo;
+import com.intellijeep.model.info.UserLocationInfo;
+import com.intellijeep.model.info.UserPersonalInfo;
 import com.intellijeep.services.UserService;
 
 import java.util.Scanner;
 
 public class SignUpMenu extends AbstractMenu{
 
-    private UserService us;
+    private final UserService us;
 
-    private UserAccountInfo accountInfo; //id, username, password, accountType
-    private UserPersonalInfo personalInfo; //first name, last name, email, phone number
-    private UserLocationInfo locationInfo; //street address, city, state, zip
+    private final UserAccountInfo accountInfo; //id, username, password, accountType
+    private final UserPersonalInfo personalInfo; //first name, last name, email, phone number
+    private final UserLocationInfo locationInfo; //street address, city, state, zip
 
     public SignUpMenu() {
         this.us = new UserService(DaoFactory.createDao(User.class));

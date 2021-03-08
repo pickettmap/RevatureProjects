@@ -1,4 +1,7 @@
-package com.intellijeep.model;
+package com.intellijeep.model.info;
+
+import com.intellijeep.model.CarStatus;
+import com.intellijeep.model.Offer;
 
 public class CarSaleInfo {
     private int vin;

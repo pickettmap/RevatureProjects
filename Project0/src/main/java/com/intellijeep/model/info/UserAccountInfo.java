@@ -1,4 +1,6 @@
-package com.intellijeep.model;
+package com.intellijeep.model.info;
+
+import com.intellijeep.model.AccountType;
 
 public class UserAccountInfo {
     private int userID;

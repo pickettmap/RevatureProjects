@@ -13,7 +13,6 @@ public class WelcomeMenu extends AbstractMenu{
 
             System.out.println("Would you like to Sign Up or Login?");
             String response = scan.nextLine().toLowerCase();
-            System.out.println(response);
             nextMenu = menuFactory.getControlFlowMenu(response, null);
         } while (nextMenu == null);
 

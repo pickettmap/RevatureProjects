@@ -1,5 +1,8 @@
 package com.intellijeep.model;
 
+import com.intellijeep.model.info.CarSaleInfo;
+import com.intellijeep.model.info.CarSpecInfo;
+
 public class Car implements Comparable <Car>{
     private CarSaleInfo carSaleInfo;
     private CarSpecInfo carSpecInfo;

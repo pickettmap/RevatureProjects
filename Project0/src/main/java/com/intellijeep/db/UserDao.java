@@ -2,7 +2,7 @@ package com.intellijeep.db;
 
 import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.model.User;
-import com.intellijeep.util.IntelliJeepCollection;
+import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.sql.*;
 
@@ -37,12 +37,13 @@ public class UserDao implements GenericDao<User> {
 
         int key = -1;
         //TODO: Ask robert about placement for query
-        String query = "insert into user_table values(?,?,?,?,?,?,?,?,?,?,?)";
+        //All fields merged into User table bc all functionally dependent on userID
+        String defaultQuery = "insert into user_table values(?,?,?,?,?,?,?,?,?,?,?)";
 
         try (Connection conn = ConnectionUtil.getConnection(".dev.")) {
 
             //TODO: Add accountType relationship
-            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = conn.prepareStatement(defaultQuery, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getAccountData().getUsername());
             ps.setString(2, user.getAccountData().getPassword());
             ps.setString(3, user.getPersonalInfo().getFirstName());
@@ -66,11 +67,9 @@ public class UserDao implements GenericDao<User> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
             return key;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return key;
         }
     }
+
 
     @Override
     public User getByID(Integer id) {
@@ -78,7 +77,7 @@ public class UserDao implements GenericDao<User> {
     }
 
     @Override
-    public IntelliJeepCollection<User> getAll() {
+    public IntelliJeepArrayList<User> getAll() {
         return null;
     }
 
@@ -93,7 +92,7 @@ public class UserDao implements GenericDao<User> {
     }
 
     @Override
-    public int updateAll(IntelliJeepCollection<User> collection) {
+    public int updateAll(IntelliJeepArrayList<User> collection) {
         return 0;
     }
 }

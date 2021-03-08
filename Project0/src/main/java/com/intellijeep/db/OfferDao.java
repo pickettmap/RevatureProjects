@@ -1,7 +1,7 @@
 package com.intellijeep.db;
 
 import com.intellijeep.model.Offer;
-import com.intellijeep.util.IntelliJeepCollection;
+import com.intellijeep.util.IntelliJeepArrayList;
 
 public class OfferDao implements GenericDao <Offer> {
     private static OfferDao instance;
@@ -27,7 +27,7 @@ public class OfferDao implements GenericDao <Offer> {
     }
 
     @Override
-    public IntelliJeepCollection<Offer> getAll() {
+    public IntelliJeepArrayList<Offer> getAll() {
         return null;
     }
 
@@ -42,7 +42,7 @@ public class OfferDao implements GenericDao <Offer> {
     }
 
     @Override
-    public int updateAll(IntelliJeepCollection<Offer> collection) {
+    public int updateAll(IntelliJeepArrayList<Offer> collection) {
         return 0;
     }
 }

@@ -1,7 +1,7 @@
 package com.intellijeep.db;
 
 
-import com.intellijeep.util.IntelliJeepCollection;
+import com.intellijeep.util.IntelliJeepArrayList;
 
 /**
  * A dao contract to determine functionality in the DealershipDao objects
@@ -13,11 +13,11 @@ public interface GenericDao<T>{
 
     T getByID(Integer id);
 
-    IntelliJeepCollection<T> getAll();
+    IntelliJeepArrayList<T> getAll();
 
     Boolean remove(Integer id);
 
     Boolean update(T t);
 
-    int updateAll(IntelliJeepCollection<T> collection);
+    int updateAll(IntelliJeepArrayList<T> collection);
 }

@@ -2,18 +2,19 @@ package com.intellijeep.services;
 
 import com.intellijeep.db.GenericDao;
 import com.intellijeep.model.*;
-import com.intellijeep.util.IntelliJeepCollection;
+import com.intellijeep.model.info.UserAccountInfo;
+import com.intellijeep.model.info.UserLocationInfo;
+import com.intellijeep.model.info.UserPersonalInfo;
+import com.intellijeep.util.IntelliJeepArrayList;
 
 public class UserService {
-
-    //GenericDao userDao holds user and userID
     GenericDao<User> userDao;
 
     public UserService(GenericDao<User> userDao) {
         this.userDao = userDao;
     }
 
-    private static IntelliJeepCollection<User> userCollection = new IntelliJeepCollection<>(User.class, 0);
+    private static IntelliJeepArrayList<User> userCollection = new IntelliJeepArrayList<>(User.class,0);
 
     public boolean doesUsernameExist(String username) {
         return findUserByUsername(username) != null;
