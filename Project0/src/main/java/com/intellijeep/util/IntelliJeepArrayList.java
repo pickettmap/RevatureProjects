@@ -44,6 +44,14 @@ public class IntelliJeepArrayList<T> implements Iterable<T>{
         return null;
     }
 
+    public T get(int i) {
+        return objList[i];
+    }
+
+    public void set(int i, T o) {
+        objList[i] = o;
+    }
+
     public void add(T o) {
         //Poor way of checking for duplicates
         for(T obj : objList) {

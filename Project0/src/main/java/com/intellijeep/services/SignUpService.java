@@ -1,6 +1,6 @@
 package com.intellijeep.services;
 
-import com.intellijeep.ui.util.InputValidationUtility;
+import com.intellijeep.util.InputValidationUtility;
 
 public class SignUpService {
 

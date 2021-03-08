@@ -1,6 +1,5 @@
-/*
- * Resources for Abstracted Builder Pattern: https://medium.com/@KonfHub/refactoring-long-parameter-list-in-constructors-java-e9c9f2cb1fb
- */
+// Resource for Abstracted Builder Pattern: https://medium.com/@KonfHub/refactoring-long-parameter-list-in-constructors-java-e9c9f2cb1fb
+
 
 package com.intellijeep.model;
 

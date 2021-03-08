@@ -1,4 +1,4 @@
-package com.intellijeep.ui.util;
+package com.intellijeep.util;
 
 public class InputValidationUtility {
     public boolean isValid(String input) {

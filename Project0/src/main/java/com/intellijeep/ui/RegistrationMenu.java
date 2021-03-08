@@ -4,7 +4,7 @@ import com.intellijeep.db.DaoFactory;
 import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
 import com.intellijeep.services.UserService;
-import com.intellijeep.ui.util.UIUtility;
+import com.intellijeep.util.UIUtility;
 
 import java.util.Scanner;
 
