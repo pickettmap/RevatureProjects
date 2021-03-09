@@ -3,17 +3,18 @@ package com.intellijeep.ui;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.db.UserDao;
 import com.intellijeep.model.User;
+import com.intellijeep.services.UserService;
 
 import java.util.Scanner;
 
 public class LoginMenu extends AbstractMenu{
 
+    private final UserService us;
     private int loginAttempts;
-    private UserDao userDao;
 
     //User is null
     public LoginMenu(User u) {
-        userDao = (UserDao) DaoFactory.createDao(User.class);
+        this.us = new UserService((UserDao) DaoFactory.createDao(User.class));
         this.u = u;
         loginAttempts = 3;
     }
@@ -25,8 +26,8 @@ public class LoginMenu extends AbstractMenu{
             String username = scan.nextLine();
             System.out.println("Enter Password: ");
             String password = scan.nextLine();
-            u = userDao.login(username, password);
-            if(u != null) {
+
+            if(us.login(username,password)) {
                 System.out.println("Welcome, " + u.getAccountData().getUsername() + "!");
                 System.out.println("Now redirecting you");
                 nextMenu = menuFactory.getUserAccountTypeMenu(u);

@@ -64,8 +64,8 @@ public class UserDao implements GenericDao<User> {
             ps.close();
             return key;
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
             return key;
         }
     }

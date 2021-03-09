@@ -41,6 +41,13 @@ public class UserService {
         }
         return -1;
     }
+    public Boolean login(String username, String password) {
+        if(userDao.login(username, password) != null) {
+            return true;
+        }
+        return false;
+
+    }
 
     //TODO: If account type changes to customer, add to customer table
     public void changeUserAccountType(AccountType accountType, int userID){

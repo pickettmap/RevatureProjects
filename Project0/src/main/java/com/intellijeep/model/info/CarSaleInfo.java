@@ -6,12 +6,10 @@ import com.intellijeep.model.Offer;
 public class CarSaleInfo {
     private int carID;
     private CarStatus carStatus;
-    private Offer[] offers;
 
     public CarSaleInfo(int carID, CarStatus carStatus) {
         this.carID = carID;
         this.carStatus = carStatus;
-        this.offers = new Offer[0];
     }
 
     public int getCarID() {
@@ -28,14 +26,6 @@ public class CarSaleInfo {
 
     public void setCarStatus(CarStatus carStatus) {
         this.carStatus = carStatus;
-    }
-
-    public Offer[] getOffers() {
-        return offers;
-    }
-
-    public void setOffers(Offer[] offers) {
-        this.offers = offers;
     }
 
     @Override

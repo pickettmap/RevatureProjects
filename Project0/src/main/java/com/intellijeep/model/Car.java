@@ -18,12 +18,14 @@ public class Car implements Comparable <Car>{
     public static class CarBuilder{
         Car car = new Car();
 
-        public CarBuilder carSaleInfoBuilder (CarSaleInfo carSaleInfo) {
+        public CarBuilder(){}
+
+        public CarBuilder carSaleInfo(CarSaleInfo carSaleInfo) {
             car.carSaleInfo = carSaleInfo;
             return this;
         }
 
-        public CarBuilder carSpecInfoBuilder (CarSpecInfo carSpecInfo) {
+        public CarBuilder carSpecInfo(CarSpecInfo carSpecInfo) {
             car.carSpecInfo = carSpecInfo;
             return this;
         }
@@ -36,5 +38,13 @@ public class Car implements Comparable <Car>{
     @Override
     public int compareTo(Car c) {
         return carSaleInfo.getCarID()-c.carSaleInfo.getCarID();
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "carSaleInfo=" + carSaleInfo +
+                ", carSpecInfo=" + carSpecInfo +
+                '}';
     }
 }

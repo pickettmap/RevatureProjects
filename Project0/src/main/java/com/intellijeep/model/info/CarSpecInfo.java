@@ -24,4 +24,12 @@ public class CarSpecInfo {
     public int getModelYear() {
         return modelYear;
     }
+
+    @Override
+    public String toString() {
+        return "CarSpecInfo{" +
+                "model='" + model + '\'' +
+                ", modelYear=" + modelYear +
+                '}';
+    }
 }

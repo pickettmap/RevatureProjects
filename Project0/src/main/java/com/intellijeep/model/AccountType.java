@@ -21,7 +21,8 @@ public enum AccountType {
                 return EMPLOYEE;
             case 4:
                 return ADMIN;
+            default:
+                return null;
         }
-        return null;
     }
-};
+}

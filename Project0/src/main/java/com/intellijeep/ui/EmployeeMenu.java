@@ -1,6 +1,10 @@
 package com.intellijeep.ui;
 
+import com.intellijeep.db.CarDao;
+import com.intellijeep.db.DaoFactory;
+import com.intellijeep.model.Car;
 import com.intellijeep.model.User;
+import com.intellijeep.services.CarService;
 import com.intellijeep.services.EmployeeService;
 
 import java.util.Scanner;
@@ -10,7 +14,7 @@ public class EmployeeMenu extends AbstractMenu{
     private EmployeeService es;
 
     public EmployeeMenu(User u) {
-        es = new EmployeeService();
+        this.es = new EmployeeService((CarDao)(DaoFactory.createDao(Car.class)));
         this.u = u;
     }
 

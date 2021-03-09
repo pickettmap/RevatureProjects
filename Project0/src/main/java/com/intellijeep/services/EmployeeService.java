@@ -1,15 +1,22 @@
 package com.intellijeep.services;
 
+import com.intellijeep.db.CarDao;
 import com.intellijeep.model.Car;
 import com.intellijeep.model.User;
+import com.intellijeep.model.info.CarSaleInfo;
+import com.intellijeep.model.info.CarSpecInfo;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 public class EmployeeService {
-    private User u;
-    private static IntelliJeepArrayList<Car> carLot;
-    private static IntelliJeepArrayList<User> employeeCollection;
+    private CarDao carDao;
 
-    public EmployeeService() {
-
+    public EmployeeService(CarDao carDao) {
+        this.carDao = carDao;
     }
+
+    public int addCarToLot(Car car) {
+        return carDao.save(car);
+    }
+
+    
 }
