@@ -3,6 +3,7 @@ package com.intellijeep;
 import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.model.*;
+import com.intellijeep.model.info.UserAccountInfo;
 import com.intellijeep.services.UserService;
 import com.intellijeep.ui.AbstractMenu;
 import com.intellijeep.ui.MenuFactory;
@@ -22,7 +23,6 @@ public class Driver {
 
         Scanner scan = new Scanner(System.in);
         menu.showMenu(scan);
-
 
     }
 }

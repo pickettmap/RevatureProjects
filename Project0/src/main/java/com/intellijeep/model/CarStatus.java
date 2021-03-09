@@ -1,8 +1,8 @@
 package com.intellijeep.model;
 
 public enum CarStatus {
-    DEALERSHIP_OWNED,
+    ON_LOT,
+    OFF_LOT,
     CUSTOMER_OWNED,
-    UNOWNED,
     PENDING
 }

@@ -1,6 +1,7 @@
 package com.intellijeep.ui;
 
 import com.intellijeep.db.DaoFactory;
+import com.intellijeep.db.UserDao;
 import com.intellijeep.model.*;
 import com.intellijeep.model.info.UserAccountInfo;
 import com.intellijeep.model.info.UserLocationInfo;
@@ -18,7 +19,7 @@ public class SignUpMenu extends AbstractMenu{
     private final UserLocationInfo locationInfo; //street address, city, state, zip
 
     public SignUpMenu() {
-        this.us = new UserService(DaoFactory.createDao(User.class));
+        this.us = new UserService((UserDao) DaoFactory.createDao(User.class));
         this.accountInfo = new UserAccountInfo();
         this.personalInfo = new UserPersonalInfo();
         this.locationInfo = new UserLocationInfo();

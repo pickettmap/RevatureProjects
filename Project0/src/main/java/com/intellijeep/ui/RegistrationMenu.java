@@ -1,6 +1,7 @@
 package com.intellijeep.ui;
 
 import com.intellijeep.db.DaoFactory;
+import com.intellijeep.db.UserDao;
 import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
 import com.intellijeep.services.UserService;
@@ -15,7 +16,7 @@ public class RegistrationMenu extends AbstractMenu{
 
     public RegistrationMenu(User u){
         this.uiu = new UIUtility();
-        this.us = new UserService(DaoFactory.createDao(User.class));
+        this.us = new UserService((UserDao) DaoFactory.createDao(User.class));
         this.u = u;
     }
 

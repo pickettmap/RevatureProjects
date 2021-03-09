@@ -1,15 +1,17 @@
 package com.intellijeep.db;
 
 import com.intellijeep.config.ConnectionUtil;
+import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
+import com.intellijeep.model.info.UserAccountInfo;
+import com.intellijeep.model.info.UserLocationInfo;
+import com.intellijeep.model.info.UserPersonalInfo;
 import com.intellijeep.util.IntelliJeepArrayList;
-import com.intellijeep.util.QueryCreationUtility;
 
 import java.sql.*;
 
 public class UserDao implements GenericDao<User> {
 
-    private QueryCreationUtility queryCreationUtility;
     /**
      * Singleton design pattern
      */
@@ -24,7 +26,6 @@ public class UserDao implements GenericDao<User> {
 
         return instance;
     }
-
     /*
     In save function, rather than return number of updated rows, see if it can return
     the serial userID created.
@@ -45,7 +46,7 @@ public class UserDao implements GenericDao<User> {
             //ps = conn.prepareStatement(queryCreationUtility.createUserInsertionQuery(user,ps), Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getAccountData().getUsername());
             ps.setString(2, user.getAccountData().getPassword());
-            ps.setInt(3, user.getAccountData().getAccountType().convert());
+            ps.setInt(3, user.getAccountData().getAccountType().ordinal());
             ps.setString(4, user.getPersonalInfo().getFirstName());
             ps.setString(5, user.getPersonalInfo().getLastName());
             ps.setString(6, user.getPersonalInfo().getEmail());
@@ -72,6 +73,125 @@ public class UserDao implements GenericDao<User> {
 
     @Override
     public User getByID(Integer id) {
+
+        String query = "Select * from app_user where id = ?";
+        try (Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                UserAccountInfo accountInfo = new UserAccountInfo(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        AccountType.convert(rs.getInt("type"))
+                );
+                UserPersonalInfo personalInfo = new UserPersonalInfo(
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("phone_number")
+                );
+                UserLocationInfo locationInfo = new UserLocationInfo(
+                        rs.getString("street_address"),
+                        rs.getString("city"),
+                        rs.getString("state"),
+                        rs.getString("zipcode")
+                );
+                User u = new User.UserBuilder()
+                        .accountData(accountInfo)
+                        .personalInfo(personalInfo)
+                        .locationData(locationInfo)
+                        .build();
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public User getByUsername(String username) {
+
+        String query = "Select * from app_user where username = ?";
+        try (Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                UserAccountInfo accountInfo = new UserAccountInfo(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        AccountType.convert(rs.getInt("type"))
+                );
+                UserPersonalInfo personalInfo = new UserPersonalInfo(
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("phone_number")
+                );
+                UserLocationInfo locationInfo = new UserLocationInfo(
+                        rs.getString("street_address"),
+                        rs.getString("city"),
+                        rs.getString("state"),
+                        rs.getString("zipcode")
+                );
+                User u = new User.UserBuilder()
+                        .accountData(accountInfo)
+                        .personalInfo(personalInfo)
+                        .locationData(locationInfo)
+                        .build();
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+    }
+
+    public User login(String username, String password) {
+        String query = "Select * from app_user where username = ? and password = ?";
+        try (Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, password);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                UserAccountInfo accountInfo = new UserAccountInfo(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        AccountType.convert(rs.getInt("type"))
+                );
+                UserPersonalInfo personalInfo = new UserPersonalInfo(
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("email"),
+                        rs.getString("phone_number")
+                );
+                UserLocationInfo locationInfo = new UserLocationInfo(
+                        rs.getString("street_address"),
+                        rs.getString("city"),
+                        rs.getString("state"),
+                        rs.getString("zipcode")
+                );
+                User u = new User.UserBuilder()
+                        .accountData(accountInfo)
+                        .personalInfo(personalInfo)
+                        .locationData(locationInfo)
+                        .build();
+                return u;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
         return null;
     }
 
@@ -87,7 +207,19 @@ public class UserDao implements GenericDao<User> {
 
     @Override
     public Boolean update(User user) {
-        return null;
+        String query = "update app_user set type = ? where id = ?";
+        try (Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, user.getAccountData().getAccountType().ordinal());
+            ps.setInt(2,user.getAccountData().getUserID());
+            if(ps.executeUpdate() == 1){
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 
     @Override

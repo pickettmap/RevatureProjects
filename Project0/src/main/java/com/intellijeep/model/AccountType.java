@@ -2,37 +2,26 @@
 
 package com.intellijeep.model;
 
-import com.intellijeep.util.EnumConverter;
-import com.intellijeep.util.IntelliJeepHashMap;
-import com.intellijeep.util.ReverseEnumMap;
+public enum AccountType {
+    UNREGISTERED,
+    USER,
+    CUSTOMER,
+    EMPLOYEE,
+    ADMIN;
 
-public enum AccountType implements EnumConverter<AccountType> {
-    UNREGISTERED(0),
-    USER(1),
-    CUSTOMER(2),
-    EMPLOYEE(3),
-    ADMIN(5);
-
-    private IntelliJeepHashMap<Integer,AccountType> map = new IntelliJeepHashMap<Integer,AccountType>();
-    public void ReverseEnumMap(Class<AccountType> accountType) {
-        for(AccountType ac : accountType.getEnumConstants()) {
-            map.put(ac.convert(),ac);
+    public static AccountType convert(int value) {
+        switch (value) {
+            case 0:
+                return UNREGISTERED;
+            case 1:
+                return USER;
+            case 2:
+                return CUSTOMER;
+            case 3:
+                return EMPLOYEE;
+            case 4:
+                return ADMIN;
         }
+        return null;
     }
-
-
-    private final int value;
-
-    AccountType(int value) {
-        this.value = value;
-    }
-
-    @Override
-    public int convert() {
-        return value;
-    }
-
-    public AccountType convert(int val) {
-        return map.get(val);
-    }
-}
+};

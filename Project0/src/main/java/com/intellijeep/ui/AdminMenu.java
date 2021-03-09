@@ -12,6 +12,6 @@ public class AdminMenu extends AbstractMenu{
 
     @Override
     public void showMenu(Scanner scan) {
-
+        System.out.println("here");
     }
 }

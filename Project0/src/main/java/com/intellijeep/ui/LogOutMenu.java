@@ -1,6 +1,7 @@
 package com.intellijeep.ui;
 
 import com.intellijeep.db.DaoFactory;
+import com.intellijeep.db.UserDao;
 import com.intellijeep.model.User;
 import com.intellijeep.services.UserService;
 import sun.rmi.runtime.Log;
@@ -13,7 +14,7 @@ public class LogOutMenu extends AbstractMenu{
 
     public LogOutMenu(User u){
         this.u = u;
-        this.us = new UserService(DaoFactory.createDao(User.class));
+        this.us = new UserService((UserDao) DaoFactory.createDao(User.class));
     }
 
     @Override

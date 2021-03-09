@@ -6,7 +6,7 @@ public class UserAccountInfo {
     private int userID;
     private String username;
     private String password;
-    private AccountType accountType;
+    private AccountType accountType = AccountType.UNREGISTERED;
 
     public UserAccountInfo(){}
 
