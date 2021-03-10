@@ -8,7 +8,7 @@ import com.intellijeep.ui.employee.EmployeeMenu;
 
 public class MenuFactory {
     public AbstractMenu getUserAccountTypeMenu(User u) {
-        AccountType accountType = u.getAccountData().getAccountType();
+        AccountType accountType = u.getAccountType();
         switch (accountType) {
             case USER:
                 return new UserMenu(u);

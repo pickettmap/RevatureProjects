@@ -81,7 +81,7 @@ public class OfferDao implements GenericDao <Offer> {
         String query = "update offer set status = 3 where status = 0 and car_id = ?";
         try(Connection conn = ConnectionUtil.getConnection("dev")) {
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1,c.getCarSaleInfo().getCarID());
+            ps.setInt(1,c.getCarID());
 
             if(ps.executeUpdate() == 1) {
                 return true;

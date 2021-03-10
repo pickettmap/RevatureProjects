@@ -27,13 +27,14 @@ public class PaymentMenu extends AbstractMenu {
     @Override
     public void showMenu(Scanner scan) {
         do{
-            System.out.println("Payment Info for Car: " + c.getCarSaleInfo().getCarID());
+            System.out.println("Payment Info for Car: " + c.getCarID());
             System.out.println("Would you like to..." +
                     "1: View remaining payments for this car \n" +
                     "2: Make payment on this car \n" +
                     "3: Go Back");
             String response = scan.nextLine();
 
+            //TODO: Check that payment exists for this car
             switch (Integer.parseInt(response)) {
                 case 1:
                     System.out.println(paymentService.getRemainingPayment(c,u));

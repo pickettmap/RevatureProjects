@@ -1,9 +1,6 @@
 package com.intellijeep.ui;
 
-import com.intellijeep.db.DaoFactory;
-import com.intellijeep.db.UserDao;
 import com.intellijeep.model.User;
-import com.intellijeep.model.info.UserAccountInfo;
 import com.intellijeep.services.UserService;
 
 import java.util.Scanner;
@@ -30,7 +27,7 @@ public class LoginMenu extends AbstractMenu{
 
             User u = us.login(username,password);
             if(u != null) {
-                System.out.println("Welcome, " + u.getAccountData().getUsername() + "!");
+                System.out.println("Welcome, " + u.getUsername() + "!");
                 System.out.println("Now redirecting you");
                 nextMenu = menuFactory.getUserAccountTypeMenu(u);
                 nextMenu.showMenu(scan);

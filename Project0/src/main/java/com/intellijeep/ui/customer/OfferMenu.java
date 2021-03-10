@@ -29,10 +29,11 @@ public class OfferMenu extends AbstractMenu {
                 System.out.println("How much would you like to offer?");
                 String response = scan.nextLine();
                 int convertedResponse = Integer.parseInt(response);
-                Offer o = new Offer(-1,carID,u.getAccountData().getUserID(),convertedResponse, OfferStatus.PENDING);
+                Offer o = new Offer(-1,carID,u.getUserID(),convertedResponse, OfferStatus.PENDING);
                 o.setOfferID(cs.makeOffer(o));
                 System.out.println("Successfully placed offer with offer ID: " +
                         o.getOfferID() + " and amount: $" + o.getAmount());
+                System.out.println("Returning you to Dealership");
                 nextMenu = menuFactory.getControlFlowMenu("dealership",u);
             } else {
                 System.out.println("Would you like to return to the Dealership Lot?");

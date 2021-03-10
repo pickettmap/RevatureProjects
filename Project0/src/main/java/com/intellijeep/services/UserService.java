@@ -4,9 +4,7 @@ import com.intellijeep.db.CarDao;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.db.UserDao;
 import com.intellijeep.model.*;
-import com.intellijeep.model.info.UserAccountInfo;
-import com.intellijeep.model.info.UserLocationInfo;
-import com.intellijeep.model.info.UserPersonalInfo;
+import com.intellijeep.model.User;
 
 public class UserService {
     private UserDao userDao;
@@ -31,20 +29,26 @@ public class UserService {
         return userDao.getByID(id);
     }
 
-    public int makeUser(UserAccountInfo accountData, UserPersonalInfo personalInfo, UserLocationInfo locationData) {
-        if(!doesUsernameExist(accountData.getUsername())) {
-            User user =
-                    new User.UserBuilder()
-                            .accountInfo(accountData)
-                            .personalInfo(personalInfo)
-                            .locationData(locationData)
-                            .build();
-            return userDao.save(user);
+    public int makeUser(User u) {
+        if(!doesUsernameExist(u.getUsername())){
+            return userDao.save(u);
+        }
+        else {
+            System.out.println("Username is taken");
+        }
+        return -1;
+    }
+
+    public int makeUser(int id, String username, String password, AccountType accountType) {
+        if(!doesUsernameExist(username)) {
+            User u = new User(id, username, password, accountType);
+            return userDao.save(u);
         } else {
             System.out.println("Username is taken");
         }
         return -1;
     }
+
     public User login(String username, String password) {
         return userDao.login(username, password);
     }
@@ -52,7 +56,7 @@ public class UserService {
     //TODO: If account type changes to customer, add to customer table
     public void changeUserAccountType(AccountType accountType, int userID){
         User u = userDao.getByID(userID);
-        u.getAccountData().setAccountType(accountType);
+        u.setAccountType(accountType);
         userDao.update(u);
     }
 

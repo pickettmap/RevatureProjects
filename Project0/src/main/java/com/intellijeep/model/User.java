@@ -1,78 +1,62 @@
-// Resource for Abstracted Builder Pattern: https://medium.com/@KonfHub/refactoring-long-parameter-list-in-constructors-java-e9c9f2cb1fb
-
-
 package com.intellijeep.model;
 
-import com.intellijeep.model.info.UserAccountInfo;
-import com.intellijeep.model.info.UserLocationInfo;
-import com.intellijeep.model.info.UserPersonalInfo;
+import com.intellijeep.model.AccountType;
 
-public class User implements Comparable<User>{
-    private UserAccountInfo accountData;
-    private UserPersonalInfo personalInfo;
-    private UserLocationInfo locationData;
+public class User {
+    private int userID;
+    private String username;
+    private String password;
+    private AccountType accountType = AccountType.UNREGISTERED;
 
-    public UserAccountInfo getAccountData() {
-        return accountData;
+    public User(){}
+
+    public User(int userID, String username, String password, AccountType accountType) {
+        this.userID = userID;
+        this.username = username;
+        this.password = password;
+        this.accountType = accountType;
     }
 
-    public void setAccountData(UserAccountInfo accountData) {
-        this.accountData = accountData;
+    public int getUserID() {
+        return userID;
     }
 
-    public UserPersonalInfo getPersonalInfo() {
-        return personalInfo;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
-    public void setPersonalInfo(UserPersonalInfo personalInfo) {
-        this.personalInfo = personalInfo;
+    public String getUsername() {
+        return username;
     }
 
-    public UserLocationInfo getLocationData() {
-        return locationData;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setLocationData(UserLocationInfo locationData) {
-        this.locationData = locationData;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "accountData=" + accountData.toString() +
-                ", personalInfo=" + personalInfo.toString() +
-                ", locationData=" + locationData.toString() +
+                "userID=" + userID +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", accountType=" + accountType +
                 '}';
     }
-
-    @Override
-    public int compareTo(User u) {
-        return this.accountData.getUserID()-u.accountData.getUserID();
-    }
-
-    public static class UserBuilder {
-
-        User user = new User();
-
-        public UserBuilder(){}
-
-        public UserBuilder accountInfo(UserAccountInfo accountData) {
-            user.accountData = accountData;
-            return this;
-        }
-
-        public UserBuilder personalInfo(UserPersonalInfo personalInfo) {
-            user.personalInfo = personalInfo;
-            return this;
-        }
-
-        public UserBuilder locationData(UserLocationInfo locationData) {
-            user.locationData = locationData;
-            return this;
-        }
-
-        public User build() {
-            return user;
-        }
-    }
 }
+

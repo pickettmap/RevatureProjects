@@ -1,10 +1,7 @@
 package com.intellijeep.ui;
 
-import com.intellijeep.db.DaoFactory;
-import com.intellijeep.db.UserDao;
 import com.intellijeep.model.User;
 import com.intellijeep.services.UserService;
-import sun.rmi.runtime.Log;
 
 import java.util.Scanner;
 

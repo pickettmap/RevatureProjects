@@ -3,7 +3,6 @@ package com.intellijeep.db;
 import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
-import com.intellijeep.model.info.UserAccountInfo;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.sql.*;
@@ -34,25 +33,17 @@ public class UserDao implements GenericDao<User> {
      */
 
     @Override
-    public int save(User user) {
+    public int save(User User) {
 
         int key = -1;
         //All fields merged into User table bc all functionally dependent on userID
-        String query = "insert into app_user (username,password, type, first_name, last_name, email, phone_number, street_address, city, state, zipcode) values(?,?,?,?,?,?,?,?,?,?,?)";
+        String query = "insert into app_user (username, password, type) values(?,?,?)";
         try (Connection conn = ConnectionUtil.getConnection("dev")) {
             PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-            //ps = conn.prepareStatement(queryCreationUtility.createUserInsertionQuery(user,ps), Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, user.getAccountData().getUsername());
-            ps.setString(2, user.getAccountData().getPassword());
-            ps.setInt(3, user.getAccountData().getAccountType().ordinal());
-            ps.setString(4, user.getPersonalInfo().getFirstName());
-            ps.setString(5, user.getPersonalInfo().getLastName());
-            ps.setString(6, user.getPersonalInfo().getEmail());
-            ps.setString(7, user.getPersonalInfo().getPhoneNumber());
-            ps.setString(8, user.getLocationData().getStreetAddress());
-            ps.setString(9, user.getLocationData().getCity());
-            ps.setString(10, user.getLocationData().getState());
-            ps.setString(11, user.getLocationData().getZipCode());
+            //ps = conn.prepareStatement(queryCreationUtility.createUserInsertionQuery(User,ps), Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, User.getUsername());
+            ps.setString(2, User.getPassword());
+            ps.setInt(3, User.getAccountType().ordinal());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -79,16 +70,13 @@ public class UserDao implements GenericDao<User> {
 
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                UserAccountInfo accountInfo = new UserAccountInfo(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        AccountType.convert(rs.getInt("type"))
+                return new User(
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    AccountType.convert(rs.getInt("type"))
                 );
-                User u = new User.UserBuilder()
-                        .accountInfo(accountInfo)
-                        .build();
-                return u;
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,16 +94,12 @@ public class UserDao implements GenericDao<User> {
 
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                UserAccountInfo accountInfo = new UserAccountInfo(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        AccountType.convert(rs.getInt("type"))
+                return new User(
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    AccountType.convert(rs.getInt("type"))
                 );
-                User u = new User.UserBuilder()
-                        .accountInfo(accountInfo)
-                        .build();
-                return u;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -133,16 +117,12 @@ public class UserDao implements GenericDao<User> {
 
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                UserAccountInfo accountInfo = new UserAccountInfo(
-                        rs.getInt("id"),
-                        rs.getString("username"),
-                        rs.getString("password"),
-                        AccountType.convert(rs.getInt("type"))
+                return new User(
+                    rs.getInt("id"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    AccountType.convert(rs.getInt("type"))
                 );
-                User u = new User.UserBuilder()
-                        .accountInfo(accountInfo)
-                        .build();
-                return u;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,12 +142,12 @@ public class UserDao implements GenericDao<User> {
     }
 
     @Override
-    public Boolean update(User user) {
+    public Boolean update(User User) {
         String query = "update app_user set type = ? where id = ?";
         try (Connection conn = ConnectionUtil.getConnection("dev")) {
             PreparedStatement ps = conn.prepareStatement(query);
-            ps.setInt(1, user.getAccountData().getAccountType().ordinal());
-            ps.setInt(2,user.getAccountData().getUserID());
+            ps.setInt(1, User.getAccountType().ordinal());
+            ps.setInt(2, User.getUserID());
             if(ps.executeUpdate() == 1){
                 return true;
             }

@@ -3,9 +3,6 @@ package com.intellijeep.db;
 import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.model.Car;
 import com.intellijeep.model.CarStatus;
-import com.intellijeep.model.User;
-import com.intellijeep.model.info.CarSaleInfo;
-import com.intellijeep.model.info.CarSpecInfo;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.sql.*;
@@ -33,9 +30,9 @@ public class CarDao implements GenericDao<Car>{
         try(Connection conn = ConnectionUtil.getConnection("dev")) {
             PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            ps.setInt(1,car.getCarSaleInfo().getCarStatus().ordinal());
-            ps.setString(2,car.getCarSpecInfo().getModel());
-            ps.setInt(3, car.getCarSpecInfo().getModelYear());
+            ps.setInt(1,car.getCarStatus().ordinal());
+            ps.setString(2,car.getModel());
+            ps.setInt(3, car.getModelYear());
 
             ps.executeUpdate();
             ResultSet rs = ps.getGeneratedKeys();
@@ -60,19 +57,11 @@ public class CarDao implements GenericDao<Car>{
 
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                CarSpecInfo carSpecInfo = new CarSpecInfo(
-                        rs.getString("model"),
-                        rs.getInt("model_year")
-                );
-                CarSaleInfo carSaleInfo = new CarSaleInfo(
-                        rs.getInt("id"),
-                        CarStatus.convert(rs.getInt("status"))
-                );
-                Car c = new Car.CarBuilder()
-                        .carSpecInfo(carSpecInfo)
-                        .carSaleInfo(carSaleInfo)
-                        .build();
-                return c;
+                return new Car(
+                    rs.getInt("id"),
+                    CarStatus.convert(rs.getInt("status")),
+                    rs.getString("model"),
+                    rs.getInt("model_year"));
             }
 
         } catch (SQLException e) {
@@ -102,18 +91,11 @@ public class CarDao implements GenericDao<Car>{
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                CarSpecInfo carSpecInfo = new CarSpecInfo(
-                    rs.getString("model"),
-                    rs.getInt("model_year")
-                );
-                CarSaleInfo carSaleInfo = new CarSaleInfo(
-                    rs.getInt("id"),
-                    CarStatus.convert(rs.getInt("status"))
-                );
-                Car c = new Car.CarBuilder()
-                        .carSaleInfo(carSaleInfo)
-                        .carSpecInfo(carSpecInfo)
-                        .build();
+                Car c = new Car(
+                        rs.getInt("id"),
+                        CarStatus.convert(rs.getInt("status")),
+                        rs.getString("model"),
+                        rs.getInt("model_year"));
                 carCollection.add(c);
             }
 
@@ -136,18 +118,11 @@ public class CarDao implements GenericDao<Car>{
             ps.setInt(1,customerID);
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                CarSpecInfo carSpecInfo = new CarSpecInfo(
-                        rs.getString("model"),
-                        rs.getInt("model_year")
-                );
-                CarSaleInfo carSaleInfo = new CarSaleInfo(
+                Car c = new Car(
                         rs.getInt("id"),
-                        CarStatus.convert(rs.getInt("status"))
-                );
-                Car c = new Car.CarBuilder()
-                        .carSaleInfo(carSaleInfo)
-                        .carSpecInfo(carSpecInfo)
-                        .build();
+                        CarStatus.convert(rs.getInt("status")),
+                        rs.getString("model"),
+                        rs.getInt("model_year"));
                 carCollection.add(c);
             }
 

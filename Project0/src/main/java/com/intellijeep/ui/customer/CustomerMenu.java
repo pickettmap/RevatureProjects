@@ -17,7 +17,7 @@ public class CustomerMenu extends AbstractMenu {
 
     @Override
     public void showMenu(Scanner scan) {
-        System.out.println("Welcome, " + u.getAccountData().getUsername() + "!");
+        System.out.println("Welcome, " + u.getUsername() + "!");
         String response;
         do {
             if(cs.isCarOwner(u)) {
@@ -29,8 +29,10 @@ public class CustomerMenu extends AbstractMenu {
                 switch (response){
                     case "1":
                         nextMenu = menuFactory.getControlFlowMenu("dealership",u);
+                        break;
                     case "2":
                         nextMenu = menuFactory.getControlFlowMenu("logout", u);
+                        break;
                 }
             }
             else{
@@ -42,10 +44,13 @@ public class CustomerMenu extends AbstractMenu {
                 switch (response) {
                     case "1":
                         nextMenu = menuFactory.getControlFlowMenu("dealership",u);
+                        break;
                     case "2":
                         nextMenu = menuFactory.getControlFlowMenu("garage",u);
+                        break;
                     case "3":
                         nextMenu = menuFactory.getControlFlowMenu("logout",u);
+                        break;
                 }
             }
         } while(nextMenu == null);

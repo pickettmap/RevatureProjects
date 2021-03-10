@@ -5,6 +5,7 @@ import com.intellijeep.db.DaoFactory;
 import com.intellijeep.db.OfferDao;
 import com.intellijeep.db.PaymentDao;
 import com.intellijeep.model.*;
+import com.intellijeep.model.User;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 //X As a customer, I can view the cars on the lot.
@@ -26,14 +27,14 @@ public class CustomerService {
     }
 
     public Boolean isCarOwner(User u){
-        if(carDao.getOwnedCars(u.getAccountData().getUserID()) != null) {
+        if(carDao.getOwnedCars(u.getUserID()) != null) {
             return true;
         }
         return false;
     }
 
     public void viewOwnedCars(User u) {
-        IntelliJeepArrayList <Car> c = carDao.getOwnedCars(u.getAccountData().getUserID());
+        IntelliJeepArrayList <Car> c = carDao.getOwnedCars(u.getUserID());
         System.out.println(c);
     }
 

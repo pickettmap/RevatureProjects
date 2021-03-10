@@ -1,7 +1,5 @@
 package com.intellijeep.ui;
 
-import com.intellijeep.db.DaoFactory;
-import com.intellijeep.db.UserDao;
 import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
 import com.intellijeep.services.UserService;
@@ -23,8 +21,10 @@ public class RegistrationMenu extends AbstractMenu{
     @Override
     public void showMenu(Scanner scan) {
         do{
+            System.out.println("Would you like to register for a customer account?");
             if(uiu.YesorNo(scan.nextLine())) {
-                us.changeUserAccountType(AccountType.CUSTOMER,u.getAccountData().getUserID());
+                us.changeUserAccountType(AccountType.CUSTOMER,u.getUserID());
+                u.setAccountType(AccountType.CUSTOMER);
                 nextMenu = menuFactory.getUserAccountTypeMenu(u);
             }
             else{

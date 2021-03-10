@@ -1,50 +1,63 @@
 package com.intellijeep.model;
 
-import com.intellijeep.model.info.CarSaleInfo;
-import com.intellijeep.model.info.CarSpecInfo;
+public class Car implements Comparable<Car> {
+    private int carID;
+    private CarStatus carStatus;
+    private String model;
+    private int modelYear;
 
-public class Car implements Comparable <Car>{
-    private CarSaleInfo carSaleInfo;
-    private CarSpecInfo carSpecInfo;
-
-    public CarSaleInfo getCarSaleInfo() {
-        return carSaleInfo;
+    public Car(){}
+    public Car(int carID, CarStatus carStatus, String model, int modelYear) {
+        this.carID = carID;
+        this.carStatus = carStatus;
+        this.model = model;
+        this.modelYear = modelYear;
     }
 
-    public CarSpecInfo getCarSpecInfo() {
-        return carSpecInfo;
+    public int getCarID() {
+        return carID;
     }
 
-    public static class CarBuilder{
-        Car car = new Car();
+    public void setCarID(int carID) {
+        this.carID = carID;
+    }
 
-        public CarBuilder(){}
+    public CarStatus getCarStatus() {
+        return carStatus;
+    }
 
-        public CarBuilder carSaleInfo(CarSaleInfo carSaleInfo) {
-            car.carSaleInfo = carSaleInfo;
-            return this;
-        }
+    public void setCarStatus(CarStatus carStatus) {
+        this.carStatus = carStatus;
+    }
 
-        public CarBuilder carSpecInfo(CarSpecInfo carSpecInfo) {
-            car.carSpecInfo = carSpecInfo;
-            return this;
-        }
+    public String getModel() {
+        return model;
+    }
 
-        public Car build() {
-            return car;
-        }
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public int getModelYear() {
+        return modelYear;
+    }
+
+    public void setModelYear(int modelYear) {
+        this.modelYear = modelYear;
     }
 
     @Override
     public int compareTo(Car c) {
-        return carSaleInfo.getCarID()-c.carSaleInfo.getCarID();
+        return carID-c.getCarID();
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "carSaleInfo=" + carSaleInfo +
-                ", carSpecInfo=" + carSpecInfo +
+                "carID=" + carID +
+                ", carStatus=" + carStatus +
+                ", model='" + model + '\'' +
+                ", modelYear=" + modelYear +
                 '}';
     }
 }

@@ -1,15 +1,7 @@
 package com.intellijeep;
 
-import com.intellijeep.db.CarDao;
-import com.intellijeep.db.DaoFactory;
-import com.intellijeep.db.OfferDao;
-import com.intellijeep.db.PaymentDao;
-import com.intellijeep.model.*;
-import com.intellijeep.model.info.UserAccountInfo;
-import com.intellijeep.services.CarService;
 import com.intellijeep.ui.AbstractMenu;
 import com.intellijeep.ui.MenuFactory;
-import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -40,7 +32,7 @@ public class Driver {
 //
 //        System.out.println(cd.getByStatus(CarStatus.ON_LOT));
 //
-//        UserAccountInfo accountInfo = new UserAccountInfo(3, "admin", "not needed", AccountType.ADMIN);
+//        User accountInfo = new User(3, "admin", "not needed", AccountType.ADMIN);
 //        User u = new User.UserBuilder().accountInfo(accountInfo).build();
 
 //        CarDao d = (CarDao) DaoFactory.createDao(Car.class);

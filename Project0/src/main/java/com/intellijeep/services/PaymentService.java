@@ -18,6 +18,6 @@ public class PaymentService {
     }
 
     public int getRemainingPayment(Car c, User u){
-        return paymentDao.getRemainingPaymentByCarID(u.getAccountData().getUserID(),c.getCarSaleInfo().getCarID());
+        return paymentDao.getRemainingPaymentByCarID(u.getUserID(),c.getCarID());
     }
 }

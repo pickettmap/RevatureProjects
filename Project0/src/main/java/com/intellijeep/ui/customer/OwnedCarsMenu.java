@@ -1,12 +1,8 @@
 package com.intellijeep.ui.customer;
 
-import com.intellijeep.db.CarDao;
-import com.intellijeep.db.DaoFactory;
-import com.intellijeep.model.Car;
 import com.intellijeep.model.User;
 import com.intellijeep.services.CustomerService;
 import com.intellijeep.ui.AbstractMenu;
-import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.util.Scanner;
 

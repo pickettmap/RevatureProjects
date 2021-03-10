@@ -3,8 +3,7 @@ package com.intellijeep.services;
 import com.intellijeep.db.CarDao;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.model.Car;
-import com.intellijeep.model.info.CarSaleInfo;
-import com.intellijeep.model.info.CarSpecInfo;
+import com.intellijeep.model.CarStatus;
 
 public class CarService {
 
@@ -12,14 +11,6 @@ public class CarService {
 
     public CarService() {
         this.carDao = (CarDao) DaoFactory.createDao(Car.class);
-    }
-
-    public Car carCreation(CarSaleInfo carSaleInfo, CarSpecInfo carSpecInfo) {
-        Car c = new Car.CarBuilder()
-                .carSaleInfo(carSaleInfo)
-                .carSpecInfo(carSpecInfo)
-                .build();
-        return c;
     }
 
     public Car getCarByID(int carID) {

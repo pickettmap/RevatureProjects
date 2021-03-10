@@ -3,8 +3,6 @@ package com.intellijeep.ui.employee;
 import com.intellijeep.model.Car;
 import com.intellijeep.model.CarStatus;
 import com.intellijeep.model.User;
-import com.intellijeep.model.info.CarSaleInfo;
-import com.intellijeep.model.info.CarSpecInfo;
 import com.intellijeep.services.CarService;
 import com.intellijeep.services.EmployeeService;
 import com.intellijeep.services.UserService;
@@ -17,15 +15,12 @@ public class AlterLotMenu extends AbstractMenu {
     private EmployeeService es;
     private UserService us;
     private CarService cs;
-    private CarSpecInfo carSpecInfo;
-    private CarSaleInfo carSaleInfo;
 
     public AlterLotMenu(User u) {
         this.es = new EmployeeService();
         this.us = new UserService();
         this.cs = new CarService();
         this.u = u;
-        carSaleInfo = new CarSaleInfo(-1, CarStatus.OFF_LOT);
     }
 
     @Override
@@ -35,20 +30,18 @@ public class AlterLotMenu extends AbstractMenu {
             String response = scan.nextLine().toLowerCase();
 
             if(response.equals("add")){
+                Car c = new Car();
                 System.out.println("What is the model?");
-                carSpecInfo.setModel(scan.nextLine());
+                c.setModel(scan.nextLine());
 
                 System.out.println("What is the model year?");
-                carSpecInfo.setModelYear(Integer.parseInt(scan.nextLine()));
+                c.setModelYear(Integer.parseInt(scan.nextLine()));
 
-                carSaleInfo.setCarStatus(CarStatus.ON_LOT);
-                Car c = new Car.CarBuilder()
-                        .carSaleInfo(carSaleInfo)
-                        .carSpecInfo(carSpecInfo)
-                        .build();
+                c.setCarStatus(CarStatus.ON_LOT);
 
-                c.getCarSaleInfo().setCarID(es.addCarToLot(c));
-                System.out.println("Car: " + c.getCarSaleInfo().getCarID() + " has been successfully added to the lot");
+
+                c.setCarID(es.addCarToLot(c));
+                System.out.println("Car: " + c.getCarID() + " has been successfully added to the lot");
                 nextMenu = menuFactory.getUserAccountTypeMenu(u);
             }
             else if(response.equals("remove")){

@@ -4,9 +4,6 @@ import com.intellijeep.db.CarDao;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.model.Car;
 import com.intellijeep.model.CarStatus;
-import com.intellijeep.model.User;
-import com.intellijeep.model.info.CarSaleInfo;
-import com.intellijeep.model.info.CarSpecInfo;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 //X As an employee, I can add a car to the lot.
