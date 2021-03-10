@@ -18,17 +18,16 @@ public class EmployeeMenu extends AbstractMenu {
     @Override
     public void showMenu(Scanner scan) {
         do{
-            System.out.println("Welcome, " + u.getUsername() + "!");
-            System.out.println("Would you like to..." +
-                    "1: Alter Lot" +
-                    "2: View Pending Offers" +
-                    "3: View all Payments" +
+            System.out.println("Would you like to...\n" +
+                    "1: Alter Lot\n" +
+                    "2: Manage Current Offers\n" +
+                    "3: View all Payments\n" +
                     "4: Logout");
             String response = scan.nextLine();
-            int convertedResponse = Integer.parseInt(response);
-
+            nextMenu = menuFactory.getEmployeeCarMenus(response, u);
 
         }
         while(nextMenu == null);
+        nextMenu.showMenu(scan);
     }
 }

@@ -17,6 +17,11 @@ public class PaymentService {
         return null;
     }
 
+    //returns true if payment plan does not exist
+    public Boolean noPaymentPlanSet(int carID, int customerID) {
+        return paymentDao.getPaymentTermByCarID(customerID,carID) == 0;
+    }
+
     public int getRemainingPayment(Car c, User u){
         return paymentDao.getRemainingPaymentByCarID(u.getUserID(),c.getCarID());
     }

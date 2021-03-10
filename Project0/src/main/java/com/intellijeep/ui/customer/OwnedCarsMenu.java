@@ -26,7 +26,7 @@ public class OwnedCarsMenu extends AbstractMenu {
                 nextMenu = menuFactory.getUserAccountTypeMenu(u);
             } else if(response.matches("[0-9]+")) {
                 int convertedResponse = Integer.parseInt(response);
-                nextMenu = menuFactory.getCarMenus("payment",convertedResponse,u);
+                nextMenu = menuFactory.getCustomerCarMenus("payment",convertedResponse,u);
             }
         }
         while(nextMenu == null);

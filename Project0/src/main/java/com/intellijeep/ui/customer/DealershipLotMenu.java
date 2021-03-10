@@ -35,7 +35,7 @@ public class DealershipLotMenu extends AbstractMenu {
             } else if(response.matches("[0-9]+")){
                 int convertedResponse = Integer.parseInt(response);
                 if (carService.doesCarExist(convertedResponse)) {
-                    nextMenu = menuFactory.getCarMenus("offer",convertedResponse, u);
+                    nextMenu = menuFactory.getCustomerCarMenus("offer",convertedResponse, u);
                 }
             }
         } while (nextMenu == null);

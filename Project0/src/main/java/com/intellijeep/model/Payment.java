@@ -3,12 +3,12 @@ package com.intellijeep.model;
 public class Payment {
     private int customerID;
     private int carID;
-    private int monthlyAmount;
-    private int loanAmount;
+    private double monthlyAmount;
+    private double loanAmount;
     private int paymentTerm;
     private int paymentRemaining;
 
-    public Payment(int customerID, int carID, int monthlyAmount, int loanAmount, int paymentTerm, int paymentRemaining) {
+    public Payment(int customerID, int carID, double monthlyAmount, double loanAmount, int paymentTerm, int paymentRemaining) {
         this.customerID = customerID;
         this.carID = carID;
         this.monthlyAmount = monthlyAmount;
@@ -33,7 +33,7 @@ public class Payment {
         this.carID = carID;
     }
 
-    public int getMonthlyAmount() {
+    public double getMonthlyAmount() {
         return monthlyAmount;
     }
 
@@ -41,7 +41,7 @@ public class Payment {
         this.monthlyAmount = monthlyAmount;
     }
 
-    public int getLoanAmount() {
+    public double getLoanAmount() {
         return loanAmount;
     }
 

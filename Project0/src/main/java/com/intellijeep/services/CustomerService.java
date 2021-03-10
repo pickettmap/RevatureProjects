@@ -43,7 +43,13 @@ public class CustomerService {
     }
 
     public int makeOffer(Offer o) {
+        int carID = o.getCarID();
+        Car c = carDao.getByID(o.getCarID());
+        c.setCarStatus(CarStatus.PENDING);
+        carDao.save(c);
+
         return offerDao.save(o);
+
     }
 
 }

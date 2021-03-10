@@ -1,5 +1,8 @@
 package com.intellijeep;
 
+import com.intellijeep.db.DaoFactory;
+import com.intellijeep.db.PaymentDao;
+import com.intellijeep.model.Payment;
 import com.intellijeep.ui.AbstractMenu;
 import com.intellijeep.ui.MenuFactory;
 
@@ -8,12 +11,12 @@ import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args) throws SQLException {
-        AbstractMenu menu;
-        MenuFactory mf = new MenuFactory();
-        menu = mf.getControlFlowMenu("welcome",null);
-
-        Scanner scan = new Scanner(System.in);
-        menu.showMenu(scan);
+//        AbstractMenu menu;
+//        MenuFactory mf = new MenuFactory();
+//        menu = mf.getControlFlowMenu("welcome",null);
+//
+//        Scanner scan = new Scanner(System.in);
+//        menu.showMenu(scan);
 
 
 //        CarDao cd = (CarDao) DaoFactory.createDao(Car.class);
@@ -38,9 +41,9 @@ public class Driver {
 //        CarDao d = (CarDao) DaoFactory.createDao(Car.class);
 //        d.remove(6);
 
-//        PaymentDao pd = (PaymentDao) DaoFactory.createDao(Payment.class);
-//        Payment p = new Payment(1,2,3,45,6,7);
-//        pd.save(p);
+        PaymentDao pd = (PaymentDao) DaoFactory.createDao(Payment.class);
+        Payment p = new Payment(1,2,3.0,45.0,6,7);
+        System.out.println(pd.save(p));
 
 //        IntelliJeepArrayList<Car> cars = d.getOwnedCars(u.getAccountData().getUserID());
 //        for(Car c : cars) {

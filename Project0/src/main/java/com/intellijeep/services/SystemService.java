@@ -8,18 +8,19 @@ import com.intellijeep.model.Offer;
 //X As the system, I reject all other pending offers for a car when an offer is accepted.
 //* As the system, I can calculate the monthly payment. -> loan_amount/payment_term
 
-public class AdminService {
+public class SystemService {
     private OfferDao od;
 
-    AdminService(){
+    SystemService(){
         this.od = (OfferDao) DaoFactory.createDao(Offer.class);
     }
 
-    public boolean rejectPendingOffers(Car c) {
-        return od.updateOtherOffers(c);
+    public void rejectPendingOffers(int carID) {
+        od.rejectPendingOffers(carID);
     }
 
-    public int calculateMonthlyPayment(int loanAmount, int paymentTerm){
+    public double calculateMonthlyPayment(double loanAmount, double paymentTerm){
         return loanAmount/paymentTerm;
     }
+
 }

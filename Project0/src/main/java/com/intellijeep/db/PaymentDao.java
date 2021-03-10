@@ -30,37 +30,45 @@ public class PaymentDao implements GenericDao <Payment> {
             PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1,payment.getCustomerID());
             ps.setInt(2,payment.getCarID());
-            ps.setInt(3,payment.getMonthlyAmount());
-            ps.setInt(4,payment.getLoanAmount());
+            ps.setDouble(3,payment.getMonthlyAmount());
+            ps.setDouble(4,payment.getLoanAmount());
             ps.setInt(5,payment.getPaymentTerm());
-            ps.setInt(6, payment.getPaymentTerm());
+            ps.setInt(6, payment.getPaymentRemaining());
 
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next()) {
+                key = rs.getInt(1);
+            }
+            ps.close();
             return key;
+
         } catch (SQLException e) {
             e.printStackTrace();
             return key;
         }
     }
 
-    public Payment viewCustomerPayment(int customerID) {
+    public IntelliJeepArrayList<Payment> viewCustomerPaymentAll(int customerID) {
         String query = "select * from payment where customer_id = ?";
         try (Connection conn = ConnectionUtil.getConnection("dev")){
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1,customerID);
-
+            IntelliJeepArrayList<Payment> payments = new IntelliJeepArrayList<Payment>(Payment.class,0);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()) {
+            while(rs.next()) {
                 Payment payment = new Payment(
                         rs.getInt("customer_id"),
                         rs.getInt("car_id"),
-                        rs.getInt("monthly_amount"),
-                        rs.getInt("loan_amount"),
+                        rs.getDouble("monthly_amount"),
+                        rs.getDouble("loan_amount"),
                         rs.getInt("payment_term"),
                         rs.getInt("payment_remaining")
                 );
 
-                return payment;
+                payments.add(payment);
             }
+            return payments;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,6 +109,26 @@ public class PaymentDao implements GenericDao <Payment> {
     @Override
     public Boolean remove(Integer id) {
         return null;
+    }
+
+    public int getPaymentTermByCarID(Integer customerID, Integer carID) {
+        int paymentTerm = -1;
+        String query = "select payment_term from payment where\n" +
+                "customer_id = ? and car_id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,customerID);
+            ps.setInt(2,carID);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                paymentTerm=  rs.getInt("payment_remaining");
+            }
+            return paymentTerm;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return paymentTerm;
+        }
     }
 
     @Override

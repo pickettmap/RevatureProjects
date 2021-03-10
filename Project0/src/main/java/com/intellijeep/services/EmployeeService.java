@@ -2,8 +2,9 @@ package com.intellijeep.services;
 
 import com.intellijeep.db.CarDao;
 import com.intellijeep.db.DaoFactory;
-import com.intellijeep.model.Car;
-import com.intellijeep.model.CarStatus;
+import com.intellijeep.db.OfferDao;
+import com.intellijeep.db.PaymentDao;
+import com.intellijeep.model.*;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 //X As an employee, I can add a car to the lot.
@@ -14,9 +15,15 @@ import com.intellijeep.util.IntelliJeepArrayList;
 
 public class EmployeeService {
     private CarDao carDao;
+    private OfferDao offerDao;
+    private PaymentDao paymentDao;
+    private SystemService ss;
 
     public EmployeeService() {
         this.carDao = (CarDao) DaoFactory.createDao(Car.class);
+        this.offerDao = (OfferDao) DaoFactory.createDao(Offer.class);
+        this.paymentDao = (PaymentDao) DaoFactory.createDao(Payment.class);
+        this.ss = new SystemService();
     }
 
     public int addCarToLot(Car car) {
@@ -34,5 +41,56 @@ public class EmployeeService {
         return carDao.getByStatus(status);
     }
 
+    public Offer getHighestOffer(int carID) {
+        return offerDao.findHighestOffer(carDao.getByID(carID));
+    }
+
+    public Boolean isValidOffer(int OfferID) {
+        return offerDao.getByID(OfferID) != null;
+    }
+
+    //Need to update offers, car, make basic payment.
+    public void acceptOffer(int offerID) {
+        Offer o = offerDao.getByID(offerID);
+        o.setOfferStatus(OfferStatus.ACCEPTED);
+        offerDao.update(o);
+
+        int carID = o.getCarID();
+        Car c = carDao.getByID(carID);
+        c.setCarStatus(CarStatus.CUSTOMER_OWNED);
+        carDao.update(c);
+
+        createPayment(o);
+
+        ss.rejectPendingOffers(o.getCarID());
+    }
+
+    public void createPayment(Offer o) {
+        Payment p = new Payment(
+                o.getCustomerID(),
+                o.getCarID(),
+                0,
+                o.getAmount(),
+                0,
+                0
+        );
+        paymentDao.save(p);
+    }
+
+    public void rejectOffer(int offerID) {
+        Offer o = offerDao.getByID(offerID);
+        o.setOfferStatus(OfferStatus.REJECTED);
+        offerDao.update(o);
+    }
+
+    public void viewPendingCars(CarStatus carStatus) {
+        IntelliJeepArrayList<Car> cars = carDao.getByStatus(CarStatus.PENDING);
+        System.out.println(cars);
+    }
+
+    public void viewAllOffers(int carID) {
+        IntelliJeepArrayList<Offer> offers = offerDao.getAllCarOffers(carID);
+        System.out.println(offers);
+    }
     
 }

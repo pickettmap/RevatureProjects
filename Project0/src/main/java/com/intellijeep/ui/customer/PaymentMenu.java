@@ -27,6 +27,12 @@ public class PaymentMenu extends AbstractMenu {
     @Override
     public void showMenu(Scanner scan) {
         do{
+            if(paymentService.noPaymentPlanSet(c.getCarID(),u.getUserID())) {
+
+            }
+
+
+
             System.out.println("Payment Info for Car: " + c.getCarID());
             System.out.println("Would you like to..." +
                     "1: View remaining payments for this car \n" +
