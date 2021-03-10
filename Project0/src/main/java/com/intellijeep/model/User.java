@@ -56,7 +56,7 @@ public class User implements Comparable<User>{
 
         public UserBuilder(){}
 
-        public UserBuilder accountData(UserAccountInfo accountData) {
+        public UserBuilder accountInfo(UserAccountInfo accountData) {
             user.accountData = accountData;
             return this;
         }

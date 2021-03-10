@@ -4,6 +4,7 @@ import com.intellijeep.db.CarDao;
 import com.intellijeep.model.Car;
 import com.intellijeep.model.CarStatus;
 import com.intellijeep.model.User;
+import com.intellijeep.util.IntelliJeepArrayList;
 
 public class CustomerService {
 
@@ -18,7 +19,8 @@ public class CustomerService {
     }
 
     public void viewOwnedCars(User u) {
-        //View customer car
+        IntelliJeepArrayList<Car> ownedCars = new IntelliJeepArrayList<Car>(Car.class, 0);
+        
     }
 
     public void makeOffer(int CarID){

@@ -3,6 +3,7 @@ package com.intellijeep.db;
 import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.model.Car;
 import com.intellijeep.model.CarStatus;
+import com.intellijeep.model.User;
 import com.intellijeep.model.info.CarSaleInfo;
 import com.intellijeep.model.info.CarSpecInfo;
 import com.intellijeep.util.IntelliJeepArrayList;
@@ -97,6 +98,40 @@ public class CarDao implements GenericDao<Car>{
         }
     }
 
+    public IntelliJeepArrayList<Car> getOwnedCars(int customerID) {
+        IntelliJeepArrayList<Car> carCollection = new IntelliJeepArrayList<>(Car.class,0);
+        String query = "select * from car c\n" +
+                "\tjoin customer_car cc on cc.car_id  = c.id\n" +
+                "\tjoin app_user au on cc.customer_id = au.id \n" +
+                "\twhere au.id = ?" ;
+
+        try(Connection conn = ConnectionUtil.getConnection("dev")){
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,customerID);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                CarSpecInfo carSpecInfo = new CarSpecInfo(
+                        rs.getString("model"),
+                        rs.getInt("model_year")
+                );
+                CarSaleInfo carSaleInfo = new CarSaleInfo(
+                        rs.getInt("id"),
+                        CarStatus.convert(rs.getInt("status"))
+                );
+                Car c = new Car.CarBuilder()
+                        .carSaleInfo(carSaleInfo)
+                        .carSpecInfo(carSpecInfo)
+                        .build();
+                carCollection.add(c);
+            }
+
+            return carCollection;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     public IntelliJeepArrayList<Car> getAll() {
         return null;
@@ -104,7 +139,19 @@ public class CarDao implements GenericDao<Car>{
 
     @Override
     public Boolean remove(Integer id) {
-        return null;
+        String query = "delete from car where status != 2 and id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,id);
+
+            if(ps.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 
     @Override

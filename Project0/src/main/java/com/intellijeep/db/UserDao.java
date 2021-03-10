@@ -4,8 +4,6 @@ import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
 import com.intellijeep.model.info.UserAccountInfo;
-import com.intellijeep.model.info.UserLocationInfo;
-import com.intellijeep.model.info.UserPersonalInfo;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.sql.*;
@@ -87,22 +85,8 @@ public class UserDao implements GenericDao<User> {
                         rs.getString("password"),
                         AccountType.convert(rs.getInt("type"))
                 );
-                UserPersonalInfo personalInfo = new UserPersonalInfo(
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("email"),
-                        rs.getString("phone_number")
-                );
-                UserLocationInfo locationInfo = new UserLocationInfo(
-                        rs.getString("street_address"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("zipcode")
-                );
                 User u = new User.UserBuilder()
-                        .accountData(accountInfo)
-                        .personalInfo(personalInfo)
-                        .locationData(locationInfo)
+                        .accountInfo(accountInfo)
                         .build();
                 return u;
             }
@@ -128,22 +112,8 @@ public class UserDao implements GenericDao<User> {
                         rs.getString("password"),
                         AccountType.convert(rs.getInt("type"))
                 );
-                UserPersonalInfo personalInfo = new UserPersonalInfo(
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("email"),
-                        rs.getString("phone_number")
-                );
-                UserLocationInfo locationInfo = new UserLocationInfo(
-                        rs.getString("street_address"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("zipcode")
-                );
                 User u = new User.UserBuilder()
-                        .accountData(accountInfo)
-                        .personalInfo(personalInfo)
-                        .locationData(locationInfo)
+                        .accountInfo(accountInfo)
                         .build();
                 return u;
             }
@@ -169,22 +139,8 @@ public class UserDao implements GenericDao<User> {
                         rs.getString("password"),
                         AccountType.convert(rs.getInt("type"))
                 );
-                UserPersonalInfo personalInfo = new UserPersonalInfo(
-                        rs.getString("first_name"),
-                        rs.getString("last_name"),
-                        rs.getString("email"),
-                        rs.getString("phone_number")
-                );
-                UserLocationInfo locationInfo = new UserLocationInfo(
-                        rs.getString("street_address"),
-                        rs.getString("city"),
-                        rs.getString("state"),
-                        rs.getString("zipcode")
-                );
                 User u = new User.UserBuilder()
-                        .accountData(accountInfo)
-                        .personalInfo(personalInfo)
-                        .locationData(locationInfo)
+                        .accountInfo(accountInfo)
                         .build();
                 return u;
             }
@@ -217,7 +173,6 @@ public class UserDao implements GenericDao<User> {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
         return false;
     }

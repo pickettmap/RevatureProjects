@@ -31,7 +31,7 @@ public class UserService {
         if(!doesUsernameExist(accountData.getUsername())) {
             User user =
                     new User.UserBuilder()
-                            .accountData(accountData)
+                            .accountInfo(accountData)
                             .personalInfo(personalInfo)
                             .locationData(locationData)
                             .build();
@@ -41,12 +41,8 @@ public class UserService {
         }
         return -1;
     }
-    public Boolean login(String username, String password) {
-        if(userDao.login(username, password) != null) {
-            return true;
-        }
-        return false;
-
+    public User login(String username, String password) {
+        return userDao.login(username, password);
     }
 
     //TODO: If account type changes to customer, add to customer table

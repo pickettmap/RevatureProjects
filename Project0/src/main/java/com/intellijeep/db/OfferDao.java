@@ -1,7 +1,11 @@
 package com.intellijeep.db;
 
+import com.intellijeep.config.ConnectionUtil;
+import com.intellijeep.model.Car;
 import com.intellijeep.model.Offer;
 import com.intellijeep.util.IntelliJeepArrayList;
+
+import java.sql.*;
 
 public class OfferDao implements GenericDao <Offer> {
     private static OfferDao instance;
@@ -18,7 +22,28 @@ public class OfferDao implements GenericDao <Offer> {
 
     @Override
     public int save(Offer offer) {
-        return 0;
+        String query = "insert into offer (status, car_id, customer_id, amount) values (?, ?, ?, ?)";
+        int key = -1;
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1,offer.getOfferStatus().ordinal());
+            ps.setInt(2,offer.getCarID());
+            ps.setInt(3,offer.getCustomerID());
+            ps.setInt(4,offer.getAmount());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+
+            if(rs.next()) {
+                key = rs.getInt(1);
+            }
+            //TODO: Add the other close statements
+            ps.close();
+            return key;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return key;
+        }
     }
 
     @Override
@@ -38,7 +63,35 @@ public class OfferDao implements GenericDao <Offer> {
 
     @Override
     public Boolean update(Offer offer) {
-        return null;
+        String query = "update offer set status = ? where id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,offer.getOfferStatus().ordinal());
+            ps.setInt(2,offer.getOfferID());
+
+            if(ps.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Boolean updateOtherOffers(Car c) {
+        String query = "update offer set status = 3 where status = 0 and car_id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,c.getCarSaleInfo().getCarID());
+
+            if(ps.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
     }
 
     @Override
@@ -46,3 +99,13 @@ public class OfferDao implements GenericDao <Offer> {
         return 0;
     }
 }
+
+/*
+String query = "update offer set status = ? where id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+ */
