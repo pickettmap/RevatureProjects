@@ -53,11 +53,11 @@ public class Car implements Comparable<Car> {
 
     @Override
     public String toString() {
-        return "Car{" +
+        return "[" +
                 "carID=" + carID +
                 ", carStatus=" + carStatus +
                 ", model='" + model + '\'' +
                 ", modelYear=" + modelYear +
-                '}';
+                ']';
     }
 }

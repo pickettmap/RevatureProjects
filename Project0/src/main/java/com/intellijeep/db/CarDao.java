@@ -3,6 +3,7 @@ package com.intellijeep.db;
 import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.model.Car;
 import com.intellijeep.model.CarStatus;
+import com.intellijeep.model.User;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.sql.*;
@@ -48,6 +49,30 @@ public class CarDao implements GenericDao<Car>{
         }
     }
 
+    public int saveIntoCustomerCar(Car c, int userid) {
+        int key = -1;
+
+        String query = "insert into customer_car (car_id, customer_id) values (?,?)";
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1,c.getCarID());
+            ps.setInt(2,userid);
+
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if(rs.next()) {
+                key = rs.getInt(1);
+            }
+            ps.close();
+            return key;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return key;
+        }
+    }
+
     @Override
     public Car getByID(Integer id) {
         String query = "Select * from car where id = ?";
@@ -71,15 +96,6 @@ public class CarDao implements GenericDao<Car>{
         return null;
     }
 
-//    public Car getCustomerCars(Integer id) {
-//        String query = "Select * from customer_car where id = ?";
-//        try (Connection conn = ConnectionUtil.getConnection("dev")) {
-//            PreparedStatement ps = conn.prepareStatement(query);
-//            ps.setInt(1, id);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public IntelliJeepArrayList<Car> getByStatus(CarStatus status) {
         IntelliJeepArrayList<Car> carCollection = new IntelliJeepArrayList<>(Car.class,0);
@@ -117,7 +133,7 @@ public class CarDao implements GenericDao<Car>{
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setInt(1,customerID);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()) {
+            if(rs.next()) {
                 Car c = new Car(
                         rs.getInt("id"),
                         CarStatus.convert(rs.getInt("status")),
@@ -173,7 +189,19 @@ public class CarDao implements GenericDao<Car>{
 
     @Override
     public Boolean update(Car car) {
-        return null;
+        String query = "update car set status = ? where id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,car.getCarStatus().ordinal());
+            ps.setInt(2,car.getCarID());
+
+            if(ps.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

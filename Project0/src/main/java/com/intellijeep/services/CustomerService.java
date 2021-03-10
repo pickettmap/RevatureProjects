@@ -43,13 +43,22 @@ public class CustomerService {
     }
 
     public int makeOffer(Offer o) {
-        int carID = o.getCarID();
         Car c = carDao.getByID(o.getCarID());
         c.setCarStatus(CarStatus.PENDING);
-        carDao.save(c);
-
+        carDao.update(c);
         return offerDao.save(o);
 
+    }
+
+    public Offer viewCurrentOffer(int carID, int customerID) {
+        return offerDao.getOfferFromCarCustomer(carID,customerID);
+    }
+
+    public Boolean alreadyHasOffer(int carID, int customerID) {
+        if(offerDao.getOfferFromCarCustomer(carID,customerID)!=null){
+            return true;
+        }
+        return false;
     }
 
 }

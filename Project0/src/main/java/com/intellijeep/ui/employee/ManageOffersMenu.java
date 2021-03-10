@@ -30,14 +30,14 @@ public class ManageOffersMenu extends AbstractMenu {
             String response = scan.nextLine();
             if(response.toLowerCase().equals("b")) {
                 nextMenu = menuFactory.getUserAccountTypeMenu(u);
-            }
-            else if(response.matches("[0-9]+")) {
+            } else if(response.matches("[0-9]+")) {
                 int convertedResponse = Integer.parseInt(response);
-                if(cs.doesCarExist(convertedResponse)) {
+                if (cs.doesCarExist(convertedResponse)) {
                     nextMenu = new ManageCarOfferMenu(u, convertedResponse);
+                } else {
+                    nextMenu = menuFactory.getUserAccountTypeMenu(u);
                 }
-                nextMenu = menuFactory.getUserAccountTypeMenu(u);
-            }nextMenu = menuFactory.getUserAccountTypeMenu(u);
+            }
         }
         while(nextMenu == null);
         nextMenu.showMenu(scan);

@@ -11,7 +11,7 @@ import com.intellijeep.model.Offer;
 public class SystemService {
     private OfferDao od;
 
-    SystemService(){
+    public SystemService(){
         this.od = (OfferDao) DaoFactory.createDao(Offer.class);
     }
 
@@ -19,7 +19,7 @@ public class SystemService {
         od.rejectPendingOffers(carID);
     }
 
-    public double calculateMonthlyPayment(double loanAmount, double paymentTerm){
+    public double calculateMonthlyPayment(double loanAmount, int paymentTerm){
         return loanAmount/paymentTerm;
     }
 

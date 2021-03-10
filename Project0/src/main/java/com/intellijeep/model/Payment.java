@@ -1,20 +1,32 @@
 package com.intellijeep.model;
 
 public class Payment {
+    private int paymentID;
     private int customerID;
     private int carID;
     private double monthlyAmount;
     private double loanAmount;
     private int paymentTerm;
     private int paymentRemaining;
+    private double loanBalance;
 
-    public Payment(int customerID, int carID, double monthlyAmount, double loanAmount, int paymentTerm, int paymentRemaining) {
+    public Payment(int paymentID, int customerID, int carID, double monthlyAmount, double loanAmount, int paymentTerm, int paymentRemaining, double loanBalance) {
+        this.paymentID = paymentID;
         this.customerID = customerID;
         this.carID = carID;
         this.monthlyAmount = monthlyAmount;
         this.loanAmount = loanAmount;
         this.paymentTerm = paymentTerm;
         this.paymentRemaining = paymentRemaining;
+        this.loanBalance = loanBalance;
+    }
+
+    public int getPaymentID() {
+        return paymentID;
+    }
+
+    public void setPaymentID(int paymentID) {
+        this.paymentID = paymentID;
     }
 
     public int getCustomerID() {
@@ -37,7 +49,7 @@ public class Payment {
         return monthlyAmount;
     }
 
-    public void setMonthlyAmount(int monthlyAmount) {
+    public void setMonthlyAmount(double monthlyAmount) {
         this.monthlyAmount = monthlyAmount;
     }
 
@@ -63,5 +75,17 @@ public class Payment {
 
     public void setPaymentRemaining(int paymentRemaining) {
         this.paymentRemaining = paymentRemaining;
+    }
+
+    public void setLoanAmount(double loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    public double getLoanBalance() {
+        return loanBalance;
+    }
+
+    public void setLoanBalance(double loanBalance) {
+        this.loanBalance = loanBalance;
     }
 }

@@ -2,17 +2,21 @@ package com.intellijeep.services;
 
 import com.intellijeep.db.CarDao;
 import com.intellijeep.db.DaoFactory;
+import com.intellijeep.db.PaymentDao;
 import com.intellijeep.db.UserDao;
 import com.intellijeep.model.*;
 import com.intellijeep.model.User;
+import com.intellijeep.util.IntelliJeepArrayList;
 
 public class UserService {
     private UserDao userDao;
     private CarDao carDao;
+    private PaymentDao paymentDao;
 
     public UserService() {
         this.userDao = (UserDao) DaoFactory.createDao(User.class);
         this.carDao = (CarDao) DaoFactory.createDao(Car.class);
+        this.paymentDao = (PaymentDao) DaoFactory.createDao(Payment.class);
     }
 
     //private static IntelliJeepArrayList<User> userCollection = new IntelliJeepArrayList<>(User.class,0);
@@ -62,6 +66,20 @@ public class UserService {
 
     public void viewLotCars(){
         System.out.println(carDao.getByStatus(CarStatus.ON_LOT));
+        System.out.println(carDao.getByStatus(CarStatus.PENDING));
+    }
+
+    public void showAllUsers() {
+        System.out.println(userDao.getAll());
+    }
+
+    public String showAllPayments(int custid) {
+        if(paymentDao.viewCustomerPaymentAll(custid)==null){
+            return "This user has no payments";
+        }
+        else {
+            return paymentDao.viewCustomerPaymentAll(custid).toString();
+        }
     }
 
 

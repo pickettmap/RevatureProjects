@@ -17,11 +17,7 @@ public class CarService {
         return carDao.getByID(carID);
     }
 
-    //TODO: create car getByID
     public Boolean doesCarExist(Integer carID){
-        if(getCarByID(carID) != null) {
-            return true;
-        }
-        return false;
+        return getCarByID(carID)!=null;
     }
 }

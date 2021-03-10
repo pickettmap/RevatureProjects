@@ -23,7 +23,11 @@ public class EmployeeMenu extends AbstractMenu {
                     "2: Manage Current Offers\n" +
                     "3: View all Payments\n" +
                     "4: Logout");
+
             String response = scan.nextLine();
+            if (response.toLowerCase().equals("logout")) {
+                nextMenu = menuFactory.getControlFlowMenu("logout",u);
+            }
             nextMenu = menuFactory.getEmployeeCarMenus(response, u);
 
         }

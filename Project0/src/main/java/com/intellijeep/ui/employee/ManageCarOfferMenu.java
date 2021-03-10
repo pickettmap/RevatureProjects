@@ -24,40 +24,40 @@ public class ManageCarOfferMenu extends AbstractMenu {
     public void showMenu(Scanner scan) {
         do{
             es.viewAllOffers(carID);
-            System.out.println("Would you like to..." +
-                    "1: Accept the max offer\n" +
-                    "2: Manually accept offer by offerID\n" +
-                    "3: Manually reject offer by offerID\n" +
-                    "4: Go Back");
+            System.out.println("Would you like to...\n" +
+                    "1: Manually accept offer by offerID\n" +
+                    "2: Manually reject offer by offerID\n" +
+                    "3: Go Back");
             String response = scan.nextLine();
-            int convertedResponse = Integer.parseInt(response);
-
-            switch (convertedResponse) {
-                case 1:
-                    es.acceptOffer(es.getHighestOffer(carID).getOfferID());
-                    nextMenu = menuFactory.getUserAccountTypeMenu(u);
-                    break;
-                case 2:
-                    System.out.println("Please enter offerID");
-                    int id = Integer.parseInt(scan.nextLine());
-                    if(es.isValidOffer(id)) {
-                        es.acceptOffer(id);
-                    }
-                    nextMenu = menuFactory.getUserAccountTypeMenu(u);
-                    break;
-                case 3:
-                    System.out.println("Please enter offerID");
-                    int id2 = Integer.parseInt(scan.nextLine());
-                    if(es.isValidOffer(id2)) {
-                        es.rejectOffer(id2);
-                    }
-                    nextMenu = menuFactory.getUserAccountTypeMenu(u);
-                    break;
-                case 4:
-                    nextMenu = new ManageOffersMenu(u);
-                default:
-                    nextMenu = menuFactory.getUserAccountTypeMenu(u);
+            if (response.toLowerCase().equals("b")) {
+                nextMenu = menuFactory.getUserAccountTypeMenu(u);
+            } else if(response.matches("[0-9]+")) {
+                int convertedResponse = Integer.parseInt(response);
+                switch (convertedResponse) {
+                    case 1:
+                        System.out.println("Please enter offerID");
+                        int id = Integer.parseInt(scan.nextLine());
+                        if (es.isValidOffer(id)) {
+                            es.acceptOffer(id);
+                        }
+                        nextMenu = menuFactory.getUserAccountTypeMenu(u);
+                        break;
+                    case 2:
+                        System.out.println("Please enter offerID");
+                        int id2 = Integer.parseInt(scan.nextLine());
+                        if (es.isValidOffer(id2)) {
+                            es.rejectOffer(id2);
+                        }
+                        nextMenu = menuFactory.getUserAccountTypeMenu(u);
+                        break;
+                    case 3:
+                        nextMenu = new ManageOffersMenu(u);
+                        break;
+                    default:
+                        nextMenu = menuFactory.getUserAccountTypeMenu(u);
+                }
             }
         } while(nextMenu!=null);
+        nextMenu.showMenu(scan);
     }
 }

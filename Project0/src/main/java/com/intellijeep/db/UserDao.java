@@ -2,6 +2,8 @@ package com.intellijeep.db;
 
 import com.intellijeep.config.ConnectionUtil;
 import com.intellijeep.model.AccountType;
+import com.intellijeep.model.Offer;
+import com.intellijeep.model.OfferStatus;
 import com.intellijeep.model.User;
 import com.intellijeep.util.IntelliJeepArrayList;
 
@@ -37,7 +39,7 @@ public class UserDao implements GenericDao<User> {
 
         int key = -1;
         //All fields merged into User table bc all functionally dependent on userID
-        String query = "insert into app_user (username, password, type) values(?,?,?)";
+        String query = "insert into app_user (username, password, type) values(?,passwordhash(?),?)";
         try (Connection conn = ConnectionUtil.getConnection("dev")) {
             PreparedStatement ps = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             //ps = conn.prepareStatement(queryCreationUtility.createUserInsertionQuery(User,ps), Statement.RETURN_GENERATED_KEYS);
@@ -109,7 +111,7 @@ public class UserDao implements GenericDao<User> {
     }
 
     public User login(String username, String password) {
-        String query = "Select * from app_user where username = ? and password = ?";
+        String query = "Select * from app_user where username = ? and password = passwordhash(?)";
         try (Connection conn = ConnectionUtil.getConnection("dev")) {
             PreparedStatement ps = conn.prepareStatement(query);
             ps.setString(1, username);
@@ -133,8 +135,29 @@ public class UserDao implements GenericDao<User> {
 
     @Override
     public IntelliJeepArrayList<User> getAll() {
-        return null;
+        IntelliJeepArrayList<User> customers = new IntelliJeepArrayList<User>(User.class,0);
+        String query = "select * from app_user where type = 2";
+
+        try(Connection conn = ConnectionUtil.getConnection("dev")){
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()) {
+                User u = new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        AccountType.convert(rs.getInt("type"))
+                );
+                customers.add(u);
+            }
+
+            return customers;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
 
     @Override
     public Boolean remove(Integer id) {

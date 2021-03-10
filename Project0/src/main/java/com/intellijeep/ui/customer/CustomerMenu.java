@@ -20,7 +20,7 @@ public class CustomerMenu extends AbstractMenu {
         System.out.println("Welcome, " + u.getUsername() + "!");
         String response;
         do {
-            if(cs.isCarOwner(u)) {
+            if(!cs.isCarOwner(u)) {
                 System.out.println("Would you like to...\n" +
                     "1: View cars on lot\n" +
                     "2: Logout");

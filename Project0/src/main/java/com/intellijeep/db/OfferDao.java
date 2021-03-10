@@ -1,10 +1,7 @@
 package com.intellijeep.db;
 
 import com.intellijeep.config.ConnectionUtil;
-import com.intellijeep.model.Car;
-import com.intellijeep.model.CarStatus;
-import com.intellijeep.model.Offer;
-import com.intellijeep.model.OfferStatus;
+import com.intellijeep.model.*;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.sql.*;
@@ -49,6 +46,25 @@ public class OfferDao implements GenericDao <Offer> {
 
     @Override
     public Offer getByID(Integer id) {
+        String query = "Select * from offer where id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")){
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,id);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                return new Offer(
+                    rs.getInt("id"),
+                    rs.getInt("car_id"),
+                    rs.getInt("customer_id"),
+                    rs.getInt("amount"),
+                    OfferStatus.convert(rs.getInt("status")));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -140,6 +156,30 @@ public class OfferDao implements GenericDao <Offer> {
             return o;
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Offer getOfferFromCarCustomer(int carID, int customerID) {
+        String query = "Select * from offer where car_id = ? and customer_id = ?";
+        try (Connection conn = ConnectionUtil.getConnection("dev")) {
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1, carID);
+            ps.setInt(2,customerID);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                Offer o = new Offer(
+                        rs.getInt("id"),
+                        rs.getInt("car_id"),
+                        rs.getInt("customer_id"),
+                        rs.getInt("amount"),
+                        OfferStatus.convert(rs.getInt("status")));
+                return o;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
         return null;
     }

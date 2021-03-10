@@ -4,10 +4,12 @@ import com.intellijeep.model.Car;
 import com.intellijeep.model.CarStatus;
 import com.intellijeep.model.User;
 import com.intellijeep.services.CarService;
+import com.intellijeep.services.CustomerService;
 import com.intellijeep.services.EmployeeService;
 import com.intellijeep.services.UserService;
 import com.intellijeep.ui.AbstractMenu;
 
+import java.util.Currency;
 import java.util.Scanner;
 
 public class AlterLotMenu extends AbstractMenu {
@@ -15,6 +17,7 @@ public class AlterLotMenu extends AbstractMenu {
     private EmployeeService es;
     private UserService us;
     private CarService cs;
+    private CustomerService cs1;
 
     public AlterLotMenu(User u) {
         this.es = new EmployeeService();
@@ -26,6 +29,7 @@ public class AlterLotMenu extends AbstractMenu {
     @Override
     public void showMenu(Scanner scan) {
         do{
+            us.viewLotCars();
             System.out.println("Would you like to add a car or remove a car from the lot?");
             String response = scan.nextLine().toLowerCase();
 

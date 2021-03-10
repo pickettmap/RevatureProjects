@@ -46,7 +46,10 @@ public class EmployeeService {
     }
 
     public Boolean isValidOffer(int OfferID) {
-        return offerDao.getByID(OfferID) != null;
+        if(offerDao.getByID(OfferID) != null) {
+            return true;
+        }
+        return false;
     }
 
     //Need to update offers, car, make basic payment.
@@ -60,6 +63,8 @@ public class EmployeeService {
         c.setCarStatus(CarStatus.CUSTOMER_OWNED);
         carDao.update(c);
 
+        carDao.saveIntoCustomerCar(c, o.getCustomerID());
+
         createPayment(o);
 
         ss.rejectPendingOffers(o.getCarID());
@@ -67,12 +72,14 @@ public class EmployeeService {
 
     public void createPayment(Offer o) {
         Payment p = new Payment(
+                -1,
                 o.getCustomerID(),
                 o.getCarID(),
-                0,
+                0.0,
                 o.getAmount(),
                 0,
-                0
+                0,
+                o.getAmount()
         );
         paymentDao.save(p);
     }

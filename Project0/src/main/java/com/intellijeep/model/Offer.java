@@ -72,12 +72,12 @@ public class Offer {
 
     @Override
     public String toString() {
-        return "Offer{" +
+        return "[" +
                 "offerID=" + offerID +
                 ", carID=" + carID +
                 ", customerID=" + customerID +
                 ", amount=" + amount +
                 ", offerStatus=" + offerStatus +
-                '}';
+                ']';
     }
 }
