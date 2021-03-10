@@ -25,10 +25,6 @@ public class CustomerService {
         this.offerDao = (OfferDao) DaoFactory.createDao(Offer.class);
     }
 
-    public void viewLotCars(){
-        System.out.println(carDao.getByStatus(CarStatus.ON_LOT));
-    }
-
     public Boolean isCarOwner(User u){
         if(carDao.getOwnedCars(u.getAccountData().getUserID()) != null) {
             return true;

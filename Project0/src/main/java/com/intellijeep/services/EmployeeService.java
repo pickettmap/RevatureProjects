@@ -3,6 +3,7 @@ package com.intellijeep.services;
 import com.intellijeep.db.CarDao;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.model.Car;
+import com.intellijeep.model.CarStatus;
 import com.intellijeep.model.User;
 import com.intellijeep.model.info.CarSaleInfo;
 import com.intellijeep.model.info.CarSpecInfo;
@@ -23,6 +24,17 @@ public class EmployeeService {
 
     public int addCarToLot(Car car) {
         return carDao.save(car);
+    }
+
+    public boolean removeCarFromLot(int carID) {
+        if(carDao.removeCarFromLot(carID)){
+            return true;
+        }
+        return false;
+    }
+
+    public IntelliJeepArrayList<Car> getCarsByStatus(CarStatus status) {
+        return carDao.getByStatus(status);
     }
 
     

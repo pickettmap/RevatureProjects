@@ -1,14 +1,15 @@
-package com.intellijeep.ui;
+package com.intellijeep.ui.customer;
 
 import com.intellijeep.model.Car;
 import com.intellijeep.model.User;
 import com.intellijeep.services.CarService;
 import com.intellijeep.services.CustomerService;
 import com.intellijeep.services.PaymentService;
+import com.intellijeep.ui.AbstractMenu;
 
 import java.util.Scanner;
 
-public class PaymentMenu extends AbstractMenu{
+public class PaymentMenu extends AbstractMenu {
 
     private CustomerService customerService;
     private CarService carService;

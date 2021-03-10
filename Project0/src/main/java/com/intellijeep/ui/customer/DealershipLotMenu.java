@@ -1,22 +1,26 @@
-package com.intellijeep.ui;
+package com.intellijeep.ui.customer;
 
 import com.intellijeep.model.Car;
 import com.intellijeep.model.User;
 import com.intellijeep.services.CarService;
 import com.intellijeep.services.CustomerService;
+import com.intellijeep.services.UserService;
+import com.intellijeep.ui.AbstractMenu;
 import com.intellijeep.util.IntelliJeepArrayList;
 
 import java.util.Scanner;
 
-public class DealershipLotMenu extends AbstractMenu{
+public class DealershipLotMenu extends AbstractMenu {
 
     private CustomerService customerService;
     private CarService carService;
+    private UserService userService;
     private IntelliJeepArrayList<Car> carList;
 
     public DealershipLotMenu(User u) {
-        customerService = new CustomerService();
-        carService = new CarService();
+        this.customerService = new CustomerService();
+        this.carService = new CarService();
+        this.userService = new UserService();
         this.u = u;
     }
 
@@ -24,7 +28,7 @@ public class DealershipLotMenu extends AbstractMenu{
     public void showMenu(Scanner scan) {
         do {
             System.out.println("Enter corresponding Car ID to make an offer or B to Go Back");
-            customerService.viewLotCars();
+            userService.viewLotCars();
             String response = scan.nextLine();
             if (response.toLowerCase().equals("b")) {
                 nextMenu = menuFactory.getUserAccountTypeMenu(u);

@@ -15,7 +15,7 @@ public class LoginMenu extends AbstractMenu{
 
     //User is null
     public LoginMenu(User u) {
-        this.us = new UserService((UserDao) DaoFactory.createDao(User.class));
+        this.us = new UserService();
         this.u = u;
         loginAttempts = 3;
     }

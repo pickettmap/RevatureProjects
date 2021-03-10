@@ -1,5 +1,6 @@
 package com.intellijeep.services;
 
+import com.intellijeep.db.CarDao;
 import com.intellijeep.db.DaoFactory;
 import com.intellijeep.db.UserDao;
 import com.intellijeep.model.*;
@@ -9,9 +10,11 @@ import com.intellijeep.model.info.UserPersonalInfo;
 
 public class UserService {
     private UserDao userDao;
+    private CarDao carDao;
 
-    public UserService(UserDao userDao) {
+    public UserService() {
         this.userDao = (UserDao) DaoFactory.createDao(User.class);
+        this.carDao = (CarDao) DaoFactory.createDao(Car.class);
     }
 
     //private static IntelliJeepArrayList<User> userCollection = new IntelliJeepArrayList<>(User.class,0);
@@ -51,6 +54,10 @@ public class UserService {
         User u = userDao.getByID(userID);
         u.getAccountData().setAccountType(accountType);
         userDao.update(u);
+    }
+
+    public void viewLotCars(){
+        System.out.println(carDao.getByStatus(CarStatus.ON_LOT));
     }
 
 

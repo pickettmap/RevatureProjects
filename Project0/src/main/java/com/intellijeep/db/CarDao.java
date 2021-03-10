@@ -163,6 +163,22 @@ public class CarDao implements GenericDao<Car>{
         return null;
     }
 
+    public Boolean removeCarFromLot(Integer id) {
+        String query = "update car set status = 1 where id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")){
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,id);
+
+            if(ps.executeUpdate() == 1) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public Boolean remove(Integer id) {
         String query = "delete from car where status != 2 and id = ?";

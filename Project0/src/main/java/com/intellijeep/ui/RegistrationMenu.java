@@ -16,7 +16,7 @@ public class RegistrationMenu extends AbstractMenu{
 
     public RegistrationMenu(User u){
         this.uiu = new UIUtility();
-        this.us = new UserService((UserDao) DaoFactory.createDao(User.class));
+        this.us = new UserService();
         this.u = u;
     }
 

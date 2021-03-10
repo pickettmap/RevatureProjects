@@ -1,19 +1,20 @@
-package com.intellijeep.ui;
+package com.intellijeep.ui.customer;
 
 import com.intellijeep.model.Offer;
 import com.intellijeep.model.OfferStatus;
 import com.intellijeep.model.User;
 import com.intellijeep.services.CustomerService;
+import com.intellijeep.ui.AbstractMenu;
 import com.intellijeep.util.UIUtility;
 
 import java.util.Scanner;
 
-public class OfferMenu extends AbstractMenu{
+public class OfferMenu extends AbstractMenu {
     private int carID;
     private UIUtility uiu;
     private CustomerService cs;
 
-    OfferMenu(int carID, User u) {
+    public OfferMenu(int carID, User u) {
         this.carID = carID;
         this.u = u;
         this.uiu = new UIUtility();

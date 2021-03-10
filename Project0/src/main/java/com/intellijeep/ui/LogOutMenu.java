@@ -14,7 +14,7 @@ public class LogOutMenu extends AbstractMenu{
 
     public LogOutMenu(User u){
         this.u = u;
-        this.us = new UserService((UserDao) DaoFactory.createDao(User.class));
+        this.us = new UserService();
     }
 
     @Override

@@ -2,6 +2,9 @@ package com.intellijeep.ui;
 
 import com.intellijeep.model.AccountType;
 import com.intellijeep.model.User;
+import com.intellijeep.ui.customer.*;
+import com.intellijeep.ui.employee.AlterLotMenu;
+import com.intellijeep.ui.employee.EmployeeMenu;
 
 public class MenuFactory {
     public AbstractMenu getUserAccountTypeMenu(User u) {
@@ -34,6 +37,8 @@ public class MenuFactory {
                 return new DealershipLotMenu(u);
             case "garage":
                 return new OwnedCarsMenu(u);
+            case "alterlot":
+                return new AlterLotMenu(u);
             case "welcome":
                 return new WelcomeMenu();
             default:
