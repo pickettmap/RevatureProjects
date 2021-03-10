@@ -2,10 +2,20 @@ package com.intellijeep.model;
 
 public class Payment {
     private int customerID;
+    private int carID;
     private int monthlyAmount;
     private int loanAmount;
     private int paymentTerm;
     private int paymentRemaining;
+
+    public Payment(int customerID, int carID, int monthlyAmount, int loanAmount, int paymentTerm, int paymentRemaining) {
+        this.customerID = customerID;
+        this.carID = carID;
+        this.monthlyAmount = monthlyAmount;
+        this.loanAmount = loanAmount;
+        this.paymentTerm = paymentTerm;
+        this.paymentRemaining = paymentRemaining;
+    }
 
     public int getCustomerID() {
         return customerID;
@@ -13,6 +23,14 @@ public class Payment {
 
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
+    }
+
+    public int getCarID() {
+        return carID;
+    }
+
+    public void setCarID(int carID) {
+        this.carID = carID;
     }
 
     public int getMonthlyAmount() {

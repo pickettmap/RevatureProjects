@@ -1,5 +1,6 @@
 package com.intellijeep.services;
 
+import com.intellijeep.db.DaoFactory;
 import com.intellijeep.db.UserDao;
 import com.intellijeep.model.*;
 import com.intellijeep.model.info.UserAccountInfo;
@@ -10,7 +11,7 @@ public class UserService {
     private UserDao userDao;
 
     public UserService(UserDao userDao) {
-        this.userDao = userDao;
+        this.userDao = (UserDao) DaoFactory.createDao(User.class);
     }
 
     //private static IntelliJeepArrayList<User> userCollection = new IntelliJeepArrayList<>(User.class,0);

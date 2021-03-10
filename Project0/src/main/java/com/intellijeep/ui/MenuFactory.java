@@ -30,8 +30,23 @@ public class MenuFactory {
                 return new LoginMenu(u);
             case "logout":
                 return new LogOutMenu(u);
+            case "dealership":
+                return new DealershipLotMenu(u);
+            case "garage":
+                return new OwnedCarsMenu(u);
             case "welcome":
                 return new WelcomeMenu();
+            default:
+                return null;
+        }
+    }
+
+    public AbstractMenu getCarMenus(String menuType, int carID, User u) {
+        switch (menuType.toLowerCase()) {
+            case "offer":
+                return new OfferMenu(carID, u);
+            case "payment":
+                return new PaymentMenu(carID, u);
             default:
                 return null;
         }

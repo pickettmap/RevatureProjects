@@ -16,7 +16,6 @@ public class OfferDao implements GenericDao <Offer> {
         if(instance == null) {
             instance = new OfferDao();
         }
-
         return instance;
     }
 
@@ -99,13 +98,3 @@ public class OfferDao implements GenericDao <Offer> {
         return 0;
     }
 }
-
-/*
-String query = "update offer set status = ? where id = ?";
-        try(Connection conn = ConnectionUtil.getConnection("dev")) {
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
- */

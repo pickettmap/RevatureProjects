@@ -53,6 +53,32 @@ public class CarDao implements GenericDao<Car>{
 
     @Override
     public Car getByID(Integer id) {
+        String query = "Select * from car where id = ?";
+        try(Connection conn = ConnectionUtil.getConnection("dev")){
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,id);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()) {
+                CarSpecInfo carSpecInfo = new CarSpecInfo(
+                        rs.getString("model"),
+                        rs.getInt("model_year")
+                );
+                CarSaleInfo carSaleInfo = new CarSaleInfo(
+                        rs.getInt("id"),
+                        CarStatus.convert(rs.getInt("status"))
+                );
+                Car c = new Car.CarBuilder()
+                        .carSpecInfo(carSpecInfo)
+                        .carSaleInfo(carSaleInfo)
+                        .build();
+                return c;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

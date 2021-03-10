@@ -22,7 +22,6 @@ public class RegistrationMenu extends AbstractMenu{
 
     @Override
     public void showMenu(Scanner scan) {
-        System.out.println("Would you like to register for a customer account?");
         do{
             if(uiu.YesorNo(scan.nextLine())) {
                 us.changeUserAccountType(AccountType.CUSTOMER,u.getAccountData().getUserID());
@@ -32,7 +31,6 @@ public class RegistrationMenu extends AbstractMenu{
                 nextMenu = menuFactory.getControlFlowMenu("logout", u);
             }
         }while(nextMenu == null);
-
         nextMenu.showMenu(scan);
     }
 }

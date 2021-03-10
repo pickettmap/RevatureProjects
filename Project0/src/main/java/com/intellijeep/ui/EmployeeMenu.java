@@ -14,7 +14,7 @@ public class EmployeeMenu extends AbstractMenu{
     private EmployeeService es;
 
     public EmployeeMenu(User u) {
-        this.es = new EmployeeService((CarDao)(DaoFactory.createDao(Car.class)));
+        this.es = new EmployeeService();
         this.u = u;
     }
 
