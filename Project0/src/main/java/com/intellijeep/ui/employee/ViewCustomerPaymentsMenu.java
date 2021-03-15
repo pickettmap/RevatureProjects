@@ -26,15 +26,16 @@ public class ViewCustomerPaymentsMenu extends AbstractMenu {
             }
             else if(response.matches("[0-9]+")) {
                 int convertedResponse = Integer.parseInt(response);
-                User u = us.findUserByUserID(convertedResponse);
-                if(us.doesUsernameExist(u.getUsername())){
+                User u2 = us.findUserByUserID(convertedResponse);
+                if(us.doesUsernameExist(u2.getUsername())){
                     System.out.println(us.showAllPayments(convertedResponse));
                 }
                 else {
                     System.out.println("Not a valid user id");
                 }
+                nextMenu = menuFactory.getUserAccountTypeMenu(u);
             }
-            nextMenu = menuFactory.getUserAccountTypeMenu(u);
+
         } while (nextMenu == null);
         nextMenu.showMenu(scan);
     }

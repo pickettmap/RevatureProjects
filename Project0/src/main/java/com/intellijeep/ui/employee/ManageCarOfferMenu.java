@@ -51,7 +51,7 @@ public class ManageCarOfferMenu extends AbstractMenu {
                         nextMenu = menuFactory.getUserAccountTypeMenu(u);
                         break;
                     case 3:
-                        nextMenu = new ManageOffersMenu(u);
+                        nextMenu = menuFactory.getUserAccountTypeMenu(u);
                         break;
                     default:
                         nextMenu = menuFactory.getUserAccountTypeMenu(u);
