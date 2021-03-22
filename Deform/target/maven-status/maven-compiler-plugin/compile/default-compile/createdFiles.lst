@@ -1,0 +1,13 @@
+org\deform\metadata\ForeignKey.class
+org\deform\gateway\DataGateway.class
+org\deform\metadata\Column.class
+org\deform\Driver.class
+org\deform\metadata\Table.class
+org\deform\util\TypeMappingUtil.class
+org\deform\model\Pet.class
+org\deform\util\ConnectionUtil.class
+org\deform\domain\DataMapperImpl.class
+org\deform\annotations\Entity.class
+org\deform\model\Person.class
+org\deform\domain\DataMapper.class
+org\deform\metadata\Database.class

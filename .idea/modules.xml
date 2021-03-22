@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Project0/Project0.iml" filepath="$PROJECT_DIR$/Project0/Project0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Project1-ORM/Project1-ORM.iml" filepath="$PROJECT_DIR$/Project1-ORM/Project1-ORM.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/RevatureProjects.iml" filepath="$PROJECT_DIR$/.idea/RevatureProjects.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Deform.iml" filepath="$PROJECT_DIR$/Deform.iml" />
     </modules>
   </component>
 </project>
