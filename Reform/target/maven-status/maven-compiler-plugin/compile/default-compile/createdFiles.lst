@@ -1,0 +1,14 @@
+org\reform\metadata\TableSchema.class
+org\reform\util\TypeMappingUtil.class
+org\reform\domain\DataMapper.class
+org\reform\metadata\ForeignKeySchema.class
+org\reform\metadata\DatabaseSchema.class
+org\reform\annotations\Entity.class
+org\reform\metadata\ColumnData.class
+org\reform\domain\DataController.class
+org\reform\config\ConnectionUtil.class
+org\reform\Driver.class
+org\reform\gateway\DatabaseGateway.class
+org\reform\model\Person.class
+org\reform\gateway\EntityGateway.class
+org\reform\model\Pet.class

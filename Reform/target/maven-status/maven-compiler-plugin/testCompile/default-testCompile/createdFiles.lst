@@ -1,0 +1,7 @@
+metadataTest\DatabaseSchemaTest.class
+metadataTest\TableTest.class
+utilTest\TypeMappingUtilTest.class
+modelTest\PetTest.class
+modelTest\PersonTest.class
+configTest\ConnectionUtilTest.class
+metadataTest\ColumnSchemaTest.class
