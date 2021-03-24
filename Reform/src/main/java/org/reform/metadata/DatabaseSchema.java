@@ -10,15 +10,15 @@ public class DatabaseSchema {
     private Reflections reflections;
     private static Set<Class<?>> classes;
     private static ArrayList<TableSchema> tables;
-    private ArrayList<Class> referencingClasses = new ArrayList<>();
+    private ArrayList<Class> parentClasses = new ArrayList<>();
 
     public DatabaseSchema(){
         this.reflections = new Reflections();
         this.classes = reflections.getTypesAnnotatedWith(Entity.class);
         this.tables = new ArrayList<TableSchema>();
         populateDatabase();
-        this.referencingClasses = getReferencingClasses();
-        populateForeignKeys();
+        this.parentClasses = getParentClasses();
+        getReferencedClasses();
     }
 
     public static ArrayList<TableSchema> getTables(){
@@ -44,16 +44,16 @@ public class DatabaseSchema {
     }
 
 
-    public ArrayList<Class> getReferencingClasses() {
-        ArrayList<Class> referencingClasses = new ArrayList<>();
+    public ArrayList<Class> getParentClasses() {
+        ArrayList<Class> parentClasses = new ArrayList<>();
 
         for (TableSchema t : tables) {
-            if (t.hasReferencedEntities()) {
-                referencingClasses.add(t.getTableClass());
+            if (t.hasChildEntities()) {
+                parentClasses.add(t.getTableClass());
             }
         }
-        System.out.println(referencingClasses);
-        return referencingClasses;
+        System.out.println(parentClasses);
+        return parentClasses;
     }
 
     //this should only look at through referencing classes
@@ -70,23 +70,19 @@ public class DatabaseSchema {
 
     //TODO: This is disgusting, don't show this in public
     private void getReferencedClasses(){
-        ArrayList<Class> referencedClasses = new ArrayList<>();
+        Set<Class> childClasses;
 
-        for (Class c : referencingClasses) {
+        for (Class c : parentClasses) {
             for(int i = 0; i < tables.size(); i++) {
                 if(tables.get(i).getTableClass().equals(c)) {
-                    referencedClasses = tables.get(i).getReferencedClasses();
-
-                    for(Class c2 : referencedClasses) {
+                    //childClasses = tables.get(i).getReferencedClasses();
+                    childClasses = tables.get(i).getReferencedClasses().keySet();
+                    for(Class c2 : childClasses) {
                         insertForeignKey(c, c2);
                     }
                 }
             }
         }
-    }
-
-    public void populateForeignKeys() {
-        getReferencedClasses();
     }
 
 }

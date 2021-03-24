@@ -3,11 +3,14 @@ package org.reform.model;
 
 import org.reform.annotations.Entity;
 
+import java.util.ArrayList;
+
 @Entity
 public class Person {
     private String name;
     private int age;
     private Pet pet;
+    private ArrayList<Pet> pets;
 
     public Person(String name, int age, Pet pet) {
         this.name = name;

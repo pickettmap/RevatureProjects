@@ -1,5 +1,6 @@
 package org.reform.util;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,5 +34,19 @@ public class TypeMappingUtil {
         return false;
     }
 
+    public static boolean isCollection(Class c) {
+        Object o = null;
+        try {
+            o = c.newInstance();
+            if (o.getClass().isArray() || o instanceof Collection<?> || o instanceof Map<?, ?>) {
+                return true;
+            }
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
 }

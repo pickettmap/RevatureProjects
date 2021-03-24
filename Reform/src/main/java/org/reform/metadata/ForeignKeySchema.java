@@ -1,21 +1,21 @@
 package org.reform.metadata;
 
 public class ForeignKeySchema {
-    private Class referencedClass;
+    private Class childClass;
 
-    public ForeignKeySchema(Class referencedClass) {
-        this.referencedClass = referencedClass;
+    public ForeignKeySchema(Class childClass) {
+        this.childClass = childClass;
     }
 
     public Class getForeignKeyClass() {
-        return referencedClass;
+        return childClass;
     }
 
     //TODO: Clean up to string
     @Override
     public String toString() {
         return "ForeignKey{" +
-                "referencedClass=" + referencedClass.getName() +
+                "childClass=" + childClass.getName() +
                 '}';
     }
 }

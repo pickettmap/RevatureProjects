@@ -4,14 +4,16 @@ import org.reform.util.TypeMappingUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class TableSchema<T> {
     private Class c;
-    private String tableName;
-    private ArrayList<ColumnData> columnSchemas;
-    private ArrayList<Class> referencedClasses;
-    private ArrayList<ForeignKeySchema> foreignKeys;
+    private static String tableName;
+    private static ArrayList<ColumnData> columnSchemas;
+    private static HashMap<Class, Boolean> childClasses;
+    private static ArrayList<ForeignKeySchema> parentClasses;
 
 
     /**
@@ -23,8 +25,8 @@ public class TableSchema<T> {
         this.c = c;
         this.tableName = c.getSimpleName().toLowerCase(Locale.ROOT);
         this.columnSchemas  = new ArrayList<>();
-        this.referencedClasses = new ArrayList<>();
-        this.foreignKeys = new ArrayList<>();
+        this.childClasses = new HashMap<Class,Boolean>();
+        this.parentClasses = new ArrayList<>();
 
         createColumns();
         detectTableReferences();
@@ -46,7 +48,6 @@ public class TableSchema<T> {
          for(Field f : getFields()) {
              String fieldName = f.getName();
              Class<?> fieldType = f.getType();
-
              ColumnData c = new ColumnData(fieldName, fieldType);
              columnSchemas.add(c);
          }
@@ -56,15 +57,24 @@ public class TableSchema<T> {
         return columnSchemas;
     }
 
-
-    public Boolean hasReferencedEntities() {
-        return !referencedClasses.isEmpty();
+    public ColumnData getColumn(Class c) {
+        for(ColumnData c1 : columnSchemas) {
+            if(c.equals(1)) {
+                return c1;
+            }
+        }
+        return null;
     }
 
-    public ArrayList<Class> getReferencedClasses() {return referencedClasses;}
+
+    public Boolean hasChildEntities() {
+        return !childClasses.isEmpty();
+    }
+
+    public Map<Class, Boolean> getReferencedClasses() {return childClasses;}
 
     public void addForeignKey(ForeignKeySchema fk) {
-        foreignKeys.add(fk);
+        parentClasses.add(fk);
     }
 
     /**
@@ -72,21 +82,25 @@ public class TableSchema<T> {
      * If the field is not a primitive or wrapper class (including String),
      * it is assumed that it holds a reference to another class and a foreign key is created.
      */
+
+    //TODO: table should store cardinality, not column
     private void detectTableReferences() {
         for(Field f :getFields()) {
-            if(!TypeMappingUtil.isPrimitiveType(f.getType())) {
-                Class c = f.getType();
-                referencedClasses.add(c);
+            Class c = f.getType();
+            if(!TypeMappingUtil.isPrimitiveType(c)) {
+                childClasses.put(c, false);
             }
         }
     }
+
+
 
     //TODO: Clean up to string
     @Override
     public String toString() {
         return tableName + " table: " +
                 " Columns: " + columnSchemas +
-                " Referenced Classes: " + referencedClasses +
-                " Foreign Keys: " + foreignKeys;
+                " Referenced Classes: " + childClasses +
+                " Foreign Keys: " + parentClasses;
     }
 }
