@@ -1,4 +1,4 @@
-package org.reform.domain;
+package org.reform.dto;
 
 import org.reform.metadata.DatabaseSchema;
 

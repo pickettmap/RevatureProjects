@@ -46,7 +46,6 @@ public class InsertQuery<T> {
     public PreparedStatement makePreparedStatement(PreparedStatement ps) throws IllegalAccessException, SQLException {
         int index = 1;
 
-        //TODO: check field types
         Field[] fields = t.getClass().getDeclaredFields();
         for (Field f : fields) {
             f.setAccessible(true);

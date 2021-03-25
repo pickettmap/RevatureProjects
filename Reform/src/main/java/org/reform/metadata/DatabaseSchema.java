@@ -4,20 +4,21 @@ import org.reform.annotation.Entity;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 public class DatabaseSchema {
     private Reflections reflections;
     private static Set<Class<?>> classes;
     private static ArrayList<TableSchema> tables;
-    private ArrayList<Class> parentClasses = new ArrayList<>();
+    private HashSet<Class> parentClasses;
 
     public DatabaseSchema(){
         this.reflections = new Reflections();
         this.classes = reflections.getTypesAnnotatedWith(Entity.class);
         this.tables = new ArrayList<TableSchema>();
         populateDatabase();
-        this.parentClasses = getParentClasses();
+        this.parentClasses = addParentClasses();
         getReferencedClasses();
     }
 
@@ -30,7 +31,12 @@ public class DatabaseSchema {
     }
 
     public void printTables(){
-        System.out.println(tables);
+        StringBuilder sb = new StringBuilder();
+        for(TableSchema t : tables) {
+            sb.append(t.toString());
+            sb.append("\n");
+        }
+        System.out.println(sb.toString());
     }
 
     /**
@@ -43,39 +49,55 @@ public class DatabaseSchema {
         }
     }
 
+    private static TableSchema findTableByClass(Class c) {
+        for(TableSchema t : tables) {
+            if(t.getTableClass().equals(c)) {
+                return t;
+            }
+        }
+        return null;
+    }
 
-    public ArrayList<Class> getParentClasses() {
-        ArrayList<Class> parentClasses = new ArrayList<>();
+    public static void updateParents(Class clazz){
+        TableSchema child = findTableByClass(clazz);
+        HashSet<Class> result = child.getParentClasses();
+
+        for(Class c : result) {
+            TableSchema parent = findTableByClass(c);
+            parent.setVisited(clazz);
+        }
+    }
+
+
+
+    public HashSet<Class> addParentClasses() {
+        HashSet<Class> parentClasses = new HashSet<>();
 
         for (TableSchema t : tables) {
             if (t.hasChildEntities()) {
                 parentClasses.add(t.getTableClass());
             }
         }
-        System.out.println(parentClasses);
         return parentClasses;
     }
 
-    //this should only look at through referencing classes
+
     private void insertForeignKey(Class c1, Class c2) {
         for (int i = 0; i < tables.size(); i++) {
             if(tables.get(i).getTableClass().equals(c2)) {
-                ForeignKeySchema fk = new ForeignKeySchema(c1);
-                tables.get(i).addForeignKey(fk);
+                tables.get(i).addForeignKey(c1);
                 break;
             }
         }
     }
 
-
-    //TODO: This is disgusting, don't show this in public
     private void getReferencedClasses(){
         Set<Class> childClasses;
 
         for (Class c : parentClasses) {
             for(int i = 0; i < tables.size(); i++) {
                 if(tables.get(i).getTableClass().equals(c)) {
-                    childClasses = tables.get(i).getReferencedClasses().keySet();
+                    childClasses = tables.get(i).getChildClasses();
                     for(Class c2 : childClasses) {
                         insertForeignKey(c, c2);
                     }
@@ -86,11 +108,10 @@ public class DatabaseSchema {
 
     public static boolean dataBasePersisted() {
         for(TableSchema t : tables) {
-            if(!t.allVisitedChildEntities()) {
+            if(!t.getInTheDatabase()) {
                 return false;
             }
         }
         return true;
     }
-
 }

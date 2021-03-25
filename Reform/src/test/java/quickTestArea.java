@@ -2,6 +2,8 @@ import org.h2.command.dml.Insert;
 import org.junit.Test;
 import org.reform.QueryBuilder.DML.InsertQuery;
 import org.reform.config.ConnectionUtil;
+import org.reform.gateway.DatabaseGateway;
+import org.reform.metadata.DatabaseSchema;
 import org.reform.model.Person;
 import org.reform.model.Pet;
 
@@ -30,6 +32,7 @@ public class quickTestArea {
 
     @Test
     public void quickTestTwo() {
-
+        DatabaseGateway dg = new DatabaseGateway();
+        dg.createAllTables();
     }
 }

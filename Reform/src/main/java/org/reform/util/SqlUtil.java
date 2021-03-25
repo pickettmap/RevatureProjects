@@ -21,13 +21,15 @@ public class SqlUtil {
         SQL_TYPE_MAP = new HashMap<String, String>();
         SQL_TYPE_MAP.put("string", "text");
         SQL_TYPE_MAP.put("boolean", "bit");
-        SQL_TYPE_MAP.put("integer","integer"); //for class
+        SQL_TYPE_MAP.put("int", "int");
+        SQL_TYPE_MAP.put("integer","int"); //for class
         SQL_TYPE_MAP.put("long", "long");
         SQL_TYPE_MAP.put("float", "real");
         SQL_TYPE_MAP.put("double", "float");
     }
 
     public static String convertDataTypeToSql(Class c) {
+        //TODO: see if you can work in foreign key
         if(!TypeMappingUtil.isPrimitiveType(c)) {
             return "text";
         }

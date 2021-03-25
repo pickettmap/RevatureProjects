@@ -10,8 +10,9 @@ public class TableSchema<T> {
     private String tableName;
     private HashSet<ColumnData> columnSchemas;
     private HashMap<Class, Boolean> childClasses;
-    private HashSet<ForeignKeySchema> parentClasses;
+    private HashSet<Class> parentClasses;
     private HashSet<EntityCardinality> childCardinalities;
+    private Boolean inTheDatabase = false;
 
 
     /**
@@ -24,7 +25,7 @@ public class TableSchema<T> {
         this.tableName = c.getSimpleName().toLowerCase(Locale.ROOT);
         this.columnSchemas  = new HashSet<ColumnData>();
         this.childClasses = new HashMap<Class,Boolean>();
-        this.parentClasses = new HashSet<ForeignKeySchema>();
+        this.parentClasses = new HashSet<Class>();
         this.childCardinalities = new HashSet<EntityCardinality>();
 
         createColumns();
@@ -82,10 +83,17 @@ public class TableSchema<T> {
         return true;
     }
 
-    public Map<Class, Boolean> getReferencedClasses() {return childClasses;}
+    public void setVisited(Class c) {
+        childClasses.put(c, true);
+    }
 
-    public void addForeignKey(ForeignKeySchema fk) {
-        parentClasses.add(fk);
+    public HashSet<Class> getParentClasses() {return  parentClasses;
+    }
+
+    public Set<Class> getChildClasses() {return (Set<Class>) childClasses.keySet();}
+
+    public void addForeignKey(Class c) {
+        parentClasses.add(c);
     }
 
     /**
@@ -124,9 +132,17 @@ public class TableSchema<T> {
     //TODO: Clean up to string
     @Override
     public String toString() {
-        return tableName + " table: " +
-                " Columns: " + columnSchemas +
-                " Parent classes: " + parentClasses +
+        return tableName + " table: " + "\n" +
+                " Columns: " + columnSchemas + "\n" +
+                " Parent classes: " + parentClasses + "\n" +
                 " Child classes: " + childClasses;
+    }
+
+    public Boolean getInTheDatabase() {
+        return inTheDatabase;
+    }
+
+    public void setInTheDatabase(Boolean inTheDatabase) {
+        this.inTheDatabase = inTheDatabase;
     }
 }
