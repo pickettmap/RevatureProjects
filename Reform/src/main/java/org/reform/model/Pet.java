@@ -1,11 +1,13 @@
 package org.reform.model;
 
-import org.reform.annotations.Entity;
+import org.reform.annotation.Entity;
 
 @Entity
 public class Pet {
     private String name;
     private String species;
+
+    public Pet(){}
 
     public Pet(String name, String species) {
         this.name = name;

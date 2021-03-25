@@ -1,6 +1,6 @@
 package org.reform.metadata;
 
-import org.reform.annotations.Entity;
+import org.reform.annotation.Entity;
 import org.reflections.Reflections;
 
 import java.util.ArrayList;
@@ -75,7 +75,6 @@ public class DatabaseSchema {
         for (Class c : parentClasses) {
             for(int i = 0; i < tables.size(); i++) {
                 if(tables.get(i).getTableClass().equals(c)) {
-                    //childClasses = tables.get(i).getReferencedClasses();
                     childClasses = tables.get(i).getReferencedClasses().keySet();
                     for(Class c2 : childClasses) {
                         insertForeignKey(c, c2);
@@ -83,6 +82,15 @@ public class DatabaseSchema {
                 }
             }
         }
+    }
+
+    public static boolean dataBasePersisted() {
+        for(TableSchema t : tables) {
+            if(!t.allVisitedChildEntities()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

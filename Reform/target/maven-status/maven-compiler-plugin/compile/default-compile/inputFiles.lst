@@ -1,6 +1,7 @@
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\domain\DataController.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\config\ConnectionUtil.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\domain\DataMapper.java
+C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\metadata\CardinalityType.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\Driver.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\model\Person.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\util\TypeMappingUtil.java
@@ -8,6 +9,7 @@ C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\metadata\ColumnData.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\metadata\DatabaseSchema.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\metadata\ForeignKeySchema.java
+C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\metadata\EntityCardinality.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\gateway\DatabaseGateway.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\annotations\Entity.java
 C:\Users\Mikayla Pickett\Desktop\Revature\RevatureProjects\Reform\src\main\java\org\reform\metadata\TableSchema.java

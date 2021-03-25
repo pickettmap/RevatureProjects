@@ -5,7 +5,10 @@ import org.reform.model.Pet;
 import org.reform.util.TypeMappingUtil;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -38,5 +41,37 @@ public class TypeMappingUtilTest {
 ////            assertEquals(f.getType(), String.class);
 //        }
 
+    }
+
+    @Test
+    public void isHashMapCollectionTest() {
+        HashMap<Integer, Integer> m = new HashMap<Integer, Integer>();
+        assertTrue(TypeMappingUtil.isCollection(m.getClass()));
+    }
+
+    @Test
+    public void isArrayListCollectionTest() {
+        ArrayList<Integer> arr = new ArrayList<>();
+        assertTrue(TypeMappingUtil.isCollection(arr.getClass()));
+    }
+
+    /*
+    I can check if the field is a collection or an array
+    I can check if the field is a custom class using @entity
+    I can check if the field is an array of custom classes
+
+    I cannot check if the field is a collection of custom classes
+     */
+    @Test
+    public void anotherTest() {
+        Pet p = new Pet("yue", "bird");
+
+        ArrayList<Pet> pee = new ArrayList<>();
+        pee.add(p);
+
+        Pet[] piss = new Pet[1];
+        piss[0] = p;
+
+        System.out.println(piss.getClass().getComponentType());
     }
 }

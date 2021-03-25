@@ -21,10 +21,12 @@ public class TableTest {
     @Test
     public void quickie() {
         Pet p = new Pet("Duke","Dog");
-        TableSchema t = new TableSchema(p.getClass());
-        ForeignKeySchema fk = new ForeignKeySchema(Person.class);
-        System.out.println("Before foreign key: " +t);
-        t.addForeignKey(fk);
-        System.out.println("After foreign key: " + t);
+        Person p1 = new Person("mik",22, p);
+        TableSchema t = new TableSchema(p1.getClass());
+        System.out.println(t);
+//        ForeignKeySchema fk = new ForeignKeySchema(Person.class);
+//        System.out.println("Before foreign key: " +t);
+//        t.addForeignKey(fk);
+//        System.out.println("After foreign key: " + t);
     }
 }

@@ -3,17 +3,15 @@ package org.reform.metadata;
 import org.reform.util.TypeMappingUtil;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class TableSchema<T> {
     private Class c;
-    private static String tableName;
-    private static ArrayList<ColumnData> columnSchemas;
-    private static HashMap<Class, Boolean> childClasses;
-    private static ArrayList<ForeignKeySchema> parentClasses;
+    private String tableName;
+    private HashSet<ColumnData> columnSchemas;
+    private HashMap<Class, Boolean> childClasses;
+    private HashSet<ForeignKeySchema> parentClasses;
+    private HashSet<EntityCardinality> childCardinalities;
 
 
     /**
@@ -24,12 +22,14 @@ public class TableSchema<T> {
     public TableSchema(Class c) {
         this.c = c;
         this.tableName = c.getSimpleName().toLowerCase(Locale.ROOT);
-        this.columnSchemas  = new ArrayList<>();
+        this.columnSchemas  = new HashSet<ColumnData>();
         this.childClasses = new HashMap<Class,Boolean>();
-        this.parentClasses = new ArrayList<>();
+        this.parentClasses = new HashSet<ForeignKeySchema>();
+        this.childCardinalities = new HashSet<EntityCardinality>();
 
         createColumns();
-        detectTableReferences();
+        detectChildReferences();
+        detectChildCardinality();
     }
 
     public Class getTableClass(){return c;}
@@ -53,13 +53,13 @@ public class TableSchema<T> {
          }
     }
 
-    public ArrayList<ColumnData> getColumns() {
+    public Set<ColumnData> getColumns() {
         return columnSchemas;
     }
 
     public ColumnData getColumn(Class c) {
         for(ColumnData c1 : columnSchemas) {
-            if(c.equals(1)) {
+            if(c.equals(c1)) {
                 return c1;
             }
         }
@@ -69,6 +69,17 @@ public class TableSchema<T> {
 
     public Boolean hasChildEntities() {
         return !childClasses.isEmpty();
+    }
+
+    //Returns false if a child table hasn't been created/visited
+    //Returns true if all of the table's children have been created
+    public Boolean allVisitedChildEntities() {
+        for (Map.Entry mapElement : childClasses.entrySet()) {
+            if(mapElement.getValue().equals(false)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Map<Class, Boolean> getReferencedClasses() {return childClasses;}
@@ -84,7 +95,7 @@ public class TableSchema<T> {
      */
 
     //TODO: table should store cardinality, not column
-    private void detectTableReferences() {
+    private void detectChildReferences() {
         for(Field f :getFields()) {
             Class c = f.getType();
             if(!TypeMappingUtil.isPrimitiveType(c)) {
@@ -93,14 +104,29 @@ public class TableSchema<T> {
         }
     }
 
+    private void detectChildCardinality() {
+        for(Field f : getFields()) {
+            Class c = f.getType();
+            EntityCardinality e = new EntityCardinality();
 
+            if(!TypeMappingUtil.isPrimitiveType(c)) {
+                e.setChildClass(c);
+                if (!TypeMappingUtil.isCollection(c)) {
+                    e.setChildCardinality(CardinalityType.ONE);
+                } else {
+                    e.setChildCardinality(CardinalityType.MANY);
+                }
+                childCardinalities.add(e);
+            }
+        }
+    }
 
     //TODO: Clean up to string
     @Override
     public String toString() {
         return tableName + " table: " +
                 " Columns: " + columnSchemas +
-                " Referenced Classes: " + childClasses +
-                " Foreign Keys: " + parentClasses;
+                " Parent classes: " + parentClasses +
+                " Child classes: " + childClasses;
     }
 }

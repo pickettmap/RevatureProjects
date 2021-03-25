@@ -1,4 +1,4 @@
-package org.reform.annotations;
+package org.reform.annotation;
 
 /**
  * Mark classes to be converted with @Entity

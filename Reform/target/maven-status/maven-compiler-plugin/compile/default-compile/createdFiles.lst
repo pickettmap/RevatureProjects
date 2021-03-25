@@ -1,3 +1,4 @@
+org\reform\metadata\CardinalityType.class
 org\reform\metadata\TableSchema.class
 org\reform\util\TypeMappingUtil.class
 org\reform\domain\DataMapper.class
@@ -5,6 +6,7 @@ org\reform\metadata\ForeignKeySchema.class
 org\reform\metadata\DatabaseSchema.class
 org\reform\annotations\Entity.class
 org\reform\metadata\ColumnData.class
+org\reform\metadata\EntityCardinality.class
 org\reform\domain\DataController.class
 org\reform\config\ConnectionUtil.class
 org\reform\Driver.class

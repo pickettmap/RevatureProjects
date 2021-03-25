@@ -1,7 +1,10 @@
 package org.reform.util;
 
+import org.reform.exception.DefaultConstructorException;
+
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class TypeMappingUtil {
@@ -18,7 +21,7 @@ public class TypeMappingUtil {
         WRAPPER_TYPE_MAP.put(Short.class, short.class);
         WRAPPER_TYPE_MAP.put(Void.class, void.class);
         WRAPPER_TYPE_MAP.put(String.class, String.class); //I am treating String like a primitive, sue me
-}
+    }
 
     public static boolean isPrimitiveType(Class c) {
         if(WRAPPER_TYPE_MAP.containsKey(c) || WRAPPER_TYPE_MAP.containsValue(c)) {
@@ -35,15 +38,20 @@ public class TypeMappingUtil {
     }
 
     public static boolean isCollection(Class c) {
-        Object o = null;
+        if(c.isArray()) {
+            return true;
+        }
+        Object o = new Object();
         try {
             o = c.newInstance();
-            if (o.getClass().isArray() || o instanceof Collection<?> || o instanceof Map<?, ?>) {
+            if (o instanceof Collection<?> || o instanceof Map<?, ?>) {
                 return true;
             }
-        } catch (InstantiationException e) {
+        } catch (DefaultConstructorException d) {
+            d.printStackTrace();
+        }  catch (IllegalAccessException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException e) {
             e.printStackTrace();
         }
         return false;
