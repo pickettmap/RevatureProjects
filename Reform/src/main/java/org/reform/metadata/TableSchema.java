@@ -30,7 +30,7 @@ public class TableSchema<T> {
 
         createColumns();
         detectChildReferences();
-        detectChildCardinality();
+//        detectChildCardinality();
     }
 
     public Class getTableClass(){return c;}
@@ -104,6 +104,7 @@ public class TableSchema<T> {
 
     private void detectChildReferences() {
         for(Field f :getFields()) {
+            f.setAccessible(true);
             Class c = f.getType();
             if(!TypeMappingUtil.isPrimitiveType(c)) {
                 childClasses.put(c, false);

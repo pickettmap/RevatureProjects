@@ -1,18 +1,14 @@
 package org.reform.connection;
-import org.reform.config.PropertyConfig;
 
 import java.io.Closeable;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 public class ConnectionFactory implements Closeable {
 
-    public static final int MAX_CONNECTIONS = 4;
+    public static final int MAX_CONNECTIONS = 8;
     private final Connection[] connectionPool = new Connection[MAX_CONNECTIONS];
 
     private static ConnectionFactory instance;
@@ -41,7 +37,6 @@ public class ConnectionFactory implements Closeable {
         PropertyConfig config = new PropertyConfig();
         //TODO: abstract this to the user
         config.setProfile("postgres");
-        config.configureProperties();
 
         try {
             return DriverManager.getConnection(config.getUrl(),

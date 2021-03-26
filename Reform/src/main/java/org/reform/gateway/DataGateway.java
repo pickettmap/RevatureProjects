@@ -5,6 +5,7 @@ import org.reform.QueryBuilder.DML.SelectQuery;
 import org.reform.QueryBuilder.GenericQuery;
 import org.reform.connection.ConnectionSession;
 import org.reform.dto.DatabaseMapper;
+import org.reform.metadata.DatabaseSchema;
 import org.reform.util.PreparedStatementUtil;
 
 import java.lang.reflect.Constructor;
@@ -14,20 +15,38 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DataGateway<T> {
     private ConnectionSession cs = new ConnectionSession();
     private String sql;
     PreparedStatementUtil psu;
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    public DataGateway(){
+        createAllTables();
+    }
 
     public void createAllTables() {
+        DatabaseSchema db = new DatabaseSchema();
         HashSet<String> queries = DatabaseMapper.createTableQueries();
+        int i = 0;
 
         try(Connection conn = cs.getActiveConnection()) {
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            conn.setAutoCommit(false);
+            Savepoint sp = conn.setSavepoint();
+
             for(String s : queries) {
                 PreparedStatement ps = conn.prepareStatement(s);
-                ps.executeUpdate();
+                i = ps.executeUpdate();
             }
+
+            if(i==0) {
+                conn.rollback(sp);
+            }
+            conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -45,11 +64,22 @@ public class DataGateway<T> {
         this.psu = new PreparedStatementUtil(t,id);
     }
 
-    public void doSomething(){
+    public void execute(){
+        int i = 0;
         try(Connection conn = cs.getActiveConnection()) {
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            conn.setAutoCommit(false);
+            Savepoint sp = conn.setSavepoint();
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ps = psu.setPreparedStatement(ps);
-            ps.executeUpdate();
+//            System.out.println(ps.toString());
+            i = ps.executeUpdate();
+
+            if(i==0) {
+                conn.rollback(sp);
+            }
+            conn.commit();
         } catch (SQLException | IllegalAccessException throwables) {
             throwables.printStackTrace();
         }
@@ -92,7 +122,9 @@ public class DataGateway<T> {
         sql = new SelectQuery(t).genericStatement();
         try(Connection conn = cs.getActiveConnection()) {
             PreparedStatement ps = conn.prepareStatement(sql);
+            psu = new PreparedStatementUtil(t);
             ps = psu.setPreparedStatement(ps);
+//            System.out.println(ps.toString());
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
                 return rs.getInt("id");
@@ -106,12 +138,30 @@ public class DataGateway<T> {
 
     public void deleteObject(T t, int id) {
         this.sql = new DeleteQuery(t).genericStatement();
+        int i = 0;
         try(Connection conn = cs.getActiveConnection()) {
+            conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+            conn.setAutoCommit(false);
+            Savepoint sp = conn.setSavepoint();
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1,id);
-            ps.executeUpdate();
+            i = ps.executeUpdate();
+
+            if(i==0) {
+                conn.rollback(sp);
+            }
+            conn.commit();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public void dropTable() {
+
+    }
+
+    public void truncateTable() {
+
     }
 }

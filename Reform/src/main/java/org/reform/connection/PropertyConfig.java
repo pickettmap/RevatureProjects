@@ -1,4 +1,4 @@
-package org.reform.config;
+package org.reform.connection;
 
 import java.io.File;
 import java.io.FileReader;
@@ -13,17 +13,19 @@ public class PropertyConfig {
     private String password = "";
     private String profile = "";
 
-    public void configureProperties() {
+    public PropertyConfig(){
+        configureProperties();
+    }
+
+    private void configureProperties() {
         Properties props = new Properties();
 
         try {
             props.load(new FileReader(new File("src/main/resources/db.properties")));
 
-            String connectionTemplate = "org.reform.profile." + profile;
-            this.url = props.getProperty(connectionTemplate + ".url");
-            this.username = props.getProperty(connectionTemplate + ".username");
-            this.password = props.getProperty(connectionTemplate + ".password");
-
+            this.url = props.getProperty("url");
+            this.username = props.getProperty("username");
+            this.password = props.getProperty("password");
         } catch (IOException e) {
             e.printStackTrace();
         }

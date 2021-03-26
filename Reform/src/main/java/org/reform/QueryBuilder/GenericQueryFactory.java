@@ -1,5 +1,6 @@
 package org.reform.QueryBuilder;
 
+import org.reform.QueryBuilder.DML.DeleteQuery;
 import org.reform.QueryBuilder.DML.InsertQuery;
 import org.reform.QueryBuilder.DML.SelectQuery;
 import org.reform.QueryBuilder.DML.UpdateQuery;
@@ -28,7 +29,7 @@ public class GenericQueryFactory<T> {
             case SELECT:
                 return new SelectQuery(t);
             case DELETE:
-
+                return new DeleteQuery(t);
             default:
                 return null;
         }

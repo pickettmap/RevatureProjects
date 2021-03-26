@@ -2,7 +2,7 @@ package org.reform.model;
 
 import org.reform.annotation.Entity;
 
-@Entity
+//@Entity
 public class Pet {
     private String name;
     private String species;

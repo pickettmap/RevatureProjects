@@ -2,20 +2,27 @@ package configTest;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.reform.config.PropertyConfig;
+import org.reform.connection.PropertyConfig;
 
 public class PropertyConfigTest {
 
+    PropertyConfig pc = new PropertyConfig();
+
     @Test
-    public void configureProperties() {
-        PropertyConfig pc = new PropertyConfig();
+    public void PropertyConfigConstructorTest() {
+        Assert.assertTrue(!pc.equals(null));
+    }
 
-        pc.configureProperties();
+    @Test
+    public void configurePropertiesTest() {
+        Assert.assertEquals(pc.getUrl(),"jdbc:postgresql://project0.cmopccrkolht.us-west-1.rds.amazonaws.com:5432/postgres?currentSchema=cool_stuff");
+        Assert.assertEquals(pc.getUsername(),"mikayla");
+        Assert.assertEquals(pc.getPassword(),"password");
+    }
 
-//        Assert.assertEquals(pc.getUrl(),"jdbc:h2:tcp://localhost/~/test");
-//
-//        Assert.assertEquals(pc.getUsername(),"sa");
-//
-//        Assert.assertEquals(pc.getPassword(),"");
+    @Test
+    public void setProfileTest() {
+        pc.setProfile("persist");
+        Assert.assertEquals(pc.getProfile(),"persist");
     }
 }

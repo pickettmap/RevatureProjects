@@ -12,14 +12,11 @@ import java.util.Set;
 public class DatabaseMapper<T> {
 
     private ArrayList<TableSchema> ts;
-    private DatabaseSchema ds;
     private GenericQueryFactory gqf = GenericQueryFactory.getInstance();
 
-    public DatabaseMapper(){
-        this.ds = new DatabaseSchema();
-    }
 
     public static HashSet<String> createTableQueries(){
+        DatabaseSchema ds = new DatabaseSchema();
         HashSet queries = new HashSet();
 
         while(!DatabaseSchema.dataBasePersisted()) {
@@ -38,6 +35,7 @@ public class DatabaseMapper<T> {
         return queries;
     }
 
+    //TODO: lmao
     //need to call drop table
     //need to call alter table
     //need to call truncate table

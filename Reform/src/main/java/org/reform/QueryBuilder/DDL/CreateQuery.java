@@ -1,6 +1,6 @@
 package org.reform.QueryBuilder.DDL;
 
-import org.reform.config.PropertyConfig;
+import org.reform.connection.PropertyConfig;
 import org.reform.metadata.ColumnData;
 import org.reform.metadata.TableSchema;
 import org.reform.util.SqlUtil;
@@ -11,7 +11,6 @@ public class CreateQuery {
         PropertyConfig config = new PropertyConfig();
         config.setProfile("postgres");
         StringBuilder sb = new StringBuilder();
-        System.out.println(config.getProfile());
         if(config.getProfile().equals("postgres")) {
             sb.append("create table if not exists " + "cool_stuff."+t.getTableName() + "(id serial primary key, ");
         } else {

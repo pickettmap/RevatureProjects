@@ -5,7 +5,7 @@ import org.reform.annotation.Entity;
 
 import java.util.ArrayList;
 
-@Entity
+//@Entity
 public class Person {
     private String name;
     private int age;
@@ -16,7 +16,6 @@ public class Person {
         this.name = name;
         this.age = age;
         this.pet = pet;
-//        this.pets = new ArrayList<>();
     }
 
     public String getName() {
