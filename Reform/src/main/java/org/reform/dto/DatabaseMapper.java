@@ -1,4 +1,4 @@
-package org.reform.gateway;
+package org.reform.dto;
 
 import org.reform.QueryBuilder.DDL.CreateQuery;
 import org.reform.metadata.ColumnData;
@@ -10,16 +10,16 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DatabaseGateway {
+public class DatabaseMapper {
 
     private ArrayList<TableSchema> ts;
     private DatabaseSchema ds;
 
-    public DatabaseGateway(){
+    public DatabaseMapper(){
         this.ds = new DatabaseSchema();
     }
-    //move this into the mapping layer
-    public HashSet<String> createAllTables(){
+
+    public HashSet<String> createTableQueries(){
         HashSet<String> queries = new HashSet();
         Set<Class> childClasses;
 
@@ -37,7 +37,6 @@ public class DatabaseGateway {
             }
 
         }
-
         return queries;
     }
 

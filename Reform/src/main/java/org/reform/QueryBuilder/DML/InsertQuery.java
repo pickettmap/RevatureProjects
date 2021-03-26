@@ -43,7 +43,7 @@ public class InsertQuery<T> {
         return sb.toString();
     }
 
-    public PreparedStatement makePreparedStatement(PreparedStatement ps) throws IllegalAccessException, SQLException {
+    public PreparedStatement setPreparedStatement(PreparedStatement ps) throws IllegalAccessException, SQLException {
         int index = 1;
 
         Field[] fields = t.getClass().getDeclaredFields();
@@ -58,8 +58,8 @@ public class InsertQuery<T> {
             }
             index++;
         }
+        System.out.println(ps.toString());
         return ps;
     }
-
 
 }

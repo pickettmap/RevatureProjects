@@ -19,9 +19,9 @@ public class PropertyConfig {
             props.load(new FileReader(new File("src/main/resources/db.properties")));
 
             String connectionTemplate = "org.reform.profile." + profile;
-            url = props.getProperty(connectionTemplate + ".url");
-            username = props.getProperty(connectionTemplate + ".username");
-            password = props.getProperty(connectionTemplate + ".password");
+            this.url = props.getProperty(connectionTemplate + ".url");
+            this.username = props.getProperty(connectionTemplate + ".username");
+            this.password = props.getProperty(connectionTemplate + ".password");
 
         } catch (IOException e) {
             e.printStackTrace();
