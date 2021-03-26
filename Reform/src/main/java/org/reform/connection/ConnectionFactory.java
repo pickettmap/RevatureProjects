@@ -40,7 +40,8 @@ public class ConnectionFactory implements Closeable {
     private Connection createConnection() {
         PropertyConfig config = new PropertyConfig();
         //TODO: abstract this to the user
-        config.configureProperties("persist");
+        config.setProfile("postgres");
+        config.configureProperties();
 
         try {
             return DriverManager.getConnection(config.getUrl(),

@@ -108,7 +108,7 @@ public class DatabaseSchema {
 
     public static boolean dataBasePersisted() {
         for(TableSchema t : tables) {
-            if(!t.getInTheDatabase()) {
+            if(!t.isInTheDatabase()) {
                 return false;
             }
         }

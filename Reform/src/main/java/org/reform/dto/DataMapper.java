@@ -1,30 +1,51 @@
 package org.reform.dto;
 
-import org.reform.metadata.DatabaseSchema;
+import org.reform.QueryBuilder.GenericQuery;
+import org.reform.QueryBuilder.GenericQueryFactory;
+import org.reform.gateway.DataGateway;
+import org.reform.metadata.QueryType;
 
 public class DataMapper<T>{
 
-    private DatabaseSchema db;
+    private T t;
+    private DataGateway<T> dg;
+    private GenericQueryFactory gqf = GenericQueryFactory.getInstance();
+    private int id;
+    GenericQuery query;
 
-    DataMapper(){
-
+    public DataMapper(T t) {
+        this.t = t;
+        this.dg = new DataGateway<T>();
+        this.id = dg.getIdByObjectValues(t);
     }
 
-    public T find (int i, Class c){
-
-        return null;
+    public void save() {
+        query = gqf.getGenericQuery(t, QueryType.INSERT);
+        dg.initializeGenericQuery(t, query, id);
+        dg.doSomething();
     }
 
-    public void insert(T t){
+    public T getById(int id) throws Exception {
 
+        return dg.selectSingleObject(t, id);
     }
 
-    public void update(T t){
-
+    public int getId() {
+        return id;
     }
 
-    public void delete(T t){
+    public void update(){
+        query = gqf.getGenericQuery(t, QueryType.UPDATE);
+        dg.initializeGenericQuery(t, query, id);
+        dg.doSomething();
+    }
 
+    public void delete(){
+        dg.deleteObject(t, this.id);
+    }
+
+    public void delete(int id){
+        dg.deleteObject(t, id);
     }
 
 }

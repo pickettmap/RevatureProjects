@@ -11,8 +11,9 @@ public class PropertyConfig {
     private String url = "";
     private String username = "";
     private String password = "";
+    private String profile = "";
 
-    public void configureProperties(String profile) {
+    public void configureProperties() {
         Properties props = new Properties();
 
         try {
@@ -38,5 +39,13 @@ public class PropertyConfig {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }

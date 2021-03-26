@@ -102,7 +102,6 @@ public class TableSchema<T> {
      * it is assumed that it holds a reference to another class and a foreign key is created.
      */
 
-    //TODO: table should store cardinality, not column
     private void detectChildReferences() {
         for(Field f :getFields()) {
             Class c = f.getType();
@@ -138,7 +137,7 @@ public class TableSchema<T> {
                 " Child classes: " + childClasses;
     }
 
-    public Boolean getInTheDatabase() {
+    public Boolean isInTheDatabase() {
         return inTheDatabase;
     }
 

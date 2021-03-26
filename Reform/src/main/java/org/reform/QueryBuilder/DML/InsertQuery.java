@@ -1,5 +1,6 @@
 package org.reform.QueryBuilder.DML;
 
+import org.reform.QueryBuilder.GenericQuery;
 import org.reform.util.TypeMappingUtil;
 
 import java.lang.reflect.Field;
@@ -7,31 +8,25 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Locale;
 
-public class InsertQuery<T> {
+public class InsertQuery<T> implements GenericQuery {
 
-    private PreparedStatement ps = null;
     private T t = null;
     final String insert = "insert into ";
     private int numFields;
-
-    public InsertQuery(PreparedStatement ps, T t) {
-        this.ps = ps;
-        this.t = t;
-        this.numFields = t.getClass().getDeclaredFields().length;
-    }
 
     public InsertQuery (T t) {
         this.t = t;
         this.numFields = t.getClass().getDeclaredFields().length;
     }
 
-    public String generalSqlStatement() {
+    @Override
+    public String genericStatement() {
         StringBuilder sb = new StringBuilder();
         sb.append(insert);
-        sb.append(t.getClass().getSimpleName().toLowerCase(Locale.ROOT)+ " (");
+        sb.append(t.getClass().getSimpleName().toLowerCase(Locale.ROOT)).append(" (");
         Field[] fields = t.getClass().getDeclaredFields();
         for(int i = 0; i < numFields-1; i++) {
-            sb.append(fields[i].getName()+", ");
+            sb.append(fields[i].getName()).append(", ");
         }
         sb.append(fields[numFields-1].getName());
         sb.append(") values(");
@@ -41,25 +36,6 @@ public class InsertQuery<T> {
         sb.append("?)");
 
         return sb.toString();
-    }
-
-    public PreparedStatement setPreparedStatement(PreparedStatement ps) throws IllegalAccessException, SQLException {
-        int index = 1;
-
-        Field[] fields = t.getClass().getDeclaredFields();
-        for (Field f : fields) {
-            f.setAccessible(true);
-            if(!TypeMappingUtil.isPrimitiveType(f.get(t).getClass())) {
-                //TODO: try to add foreign key reference to pet id
-                ps.setObject(index, f.get(t).getClass().getSimpleName());
-            }
-            else {
-                ps.setObject(index, f.get(t));
-            }
-            index++;
-        }
-        System.out.println(ps.toString());
-        return ps;
     }
 
 }
