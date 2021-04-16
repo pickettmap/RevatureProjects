@@ -1,7 +1,7 @@
 
 # RevatureProjects
 
-## [Project 0]
+## Project 0
 ### Car Dealership
 #### Overview
 > Create a console-based car dealership simulation that allows employees to add and sell cars and for customers to view and buy cars.
